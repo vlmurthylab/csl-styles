@@ -32,18 +32,24 @@ To update a style, install the new file the same way; Zotero replaces the old on
 | Shortens author lists to six names and "et al." | All authors, in the order on the paper | Every author |
 | Preprints aren't marked, even when saved as Zotero's Preprint type: "[Internet]. medRxiv; 2024. Available from: URL doi:…", with the year only | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI (with no DOI, the Archive ID, such as an arXiv number). NIH's own example gives the DOI as a doi.org address with a [cited] date; this style prints `doi: 10…` instead, so there is no URL |
 
-At a glance, with references inserted with the Zotero plugin. Each cell gives Word, then Google Docs (✅ meets NIH's rule, ❌ doesn't):
+At a glance, with references inserted with the Zotero plugin (✅ meets NIH's rule, ❌ doesn't):
 
-| NIH's rule | Standard NLM (Word · Google Docs) | This style (Word · Google Docs) |
-|---|---|---|
-| No hyperlinks | ✅ · ❌ | ✅ · ❌ |
-| No URLs | ❌ · ❌ | ✅ · ✅ |
-| No access dates | ❌ · ❌ | ✅ · ✅ |
-| All authors listed | ❌ · ❌ | ✅ · ✅ |
-| Preprints marked "[Preprint]" | ❌ · ❌ | ✅ · ✅ |
-| Preprint dated by the version cited | ❌ · ❌ | ✅ · ✅ |
-| Preprint DOI | ✅ · ✅ | ✅ · ✅ |
-| PMCID for your NIH-supported papers | ✅ · ✅ | ✅ · ✅ |
+<table>
+<thead>
+<tr><th rowspan="2">NIH's rule</th><th colspan="2">Standard NLM</th><th colspan="2">This style</th></tr>
+<tr><th>Word</th><th>Google Docs</th><th>Word</th><th>Google Docs</th></tr>
+</thead>
+<tbody>
+<tr><td>No hyperlinks</td><td align="center">✅</td><td align="center">❌</td><td align="center">✅</td><td align="center">❌</td></tr>
+<tr><td>No URLs</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>No access dates</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>All authors listed</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>Preprints marked "[Preprint]"</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>Preprint dated by the version cited</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>Preprint DOI</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td>PMCID for your NIH-supported papers</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr>
+</tbody>
+</table>
 
 Google Docs fails "No hyperlinks" with either style because of Zotero's own links to zotero.org, which **Zotero → Unlink Citations** removes (see [Before submitting](#nih-applications) below); the style can't change that. For "Preprint", the item must be saved in Zotero as a Preprint (below).
 
