@@ -1,0 +1,17 @@
+# Lab core: identical in every lab repository; change it in
+# vlmurthylab/project-template. Keep Unix line endings on scripts that git
+# runs, so the PHI check works when checked out on Windows.
+hooks/* text eol=lf
+tools/*.pl text eol=lf
+*.sh text eol=lf
+
+# GitHub's language bar: the lab's check scripts aren't this project's code, so
+# they don't count toward its language (in a small repository the Perl check
+# would otherwise make it show as Perl).
+hooks/* linguist-vendored
+tools/phi_guard.pl linguist-vendored
+tools/install_hooks.R linguist-vendored
+
+# =============================================================================
+# This repository: additions (keep the reason next to each rule)
+# =============================================================================
