@@ -41,6 +41,8 @@
       </substitute>
     </names>
   </macro>
+  <!-- "In: Editor A, editor. Book title" for chapters and conference papers;
+       "In:" stays even with no editor, so the book isn't read as the author's -->
   <macro name="editor">
     <group delimiter=": ">
       <choose>
@@ -48,10 +50,13 @@
           <text term="in" text-case="capitalize-first"/>
         </if>
       </choose>
-      <names variable="editor" suffix=".">
-        <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-        <label form="long" prefix=", "/>
-      </names>
+      <group delimiter=" ">
+        <names variable="editor" suffix=".">
+          <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+          <label form="long" prefix=", "/>
+        </names>
+        <text variable="container-title"/>
+      </group>
     </group>
   </macro>
   <macro name="publisher">
@@ -92,10 +97,30 @@
   <!-- What the no-title styles print in place of the title: "2nd ed." for a
        book, "[PhD thesis]" for a thesis -->
   <macro name="title-extras">
-    <group delimiter=" ">
-      <text macro="edition-of-book"/>
-      <text macro="thesis-type"/>
-    </group>
+    <choose>
+      <!-- Items with nothing else to identify them (a dataset, software, a
+           document, a preprint with no server) keep their title -->
+      <if type="article-journal article-magazine article-newspaper bill book chapter graphic legal_case legislation motion_picture paper-conference report song thesis" match="none">
+        <choose>
+          <if type="article">
+            <choose>
+              <if variable="publisher archive DOI" match="none">
+                <text macro="title"/>
+              </if>
+            </choose>
+          </if>
+          <else-if variable="container-title" match="none">
+            <text macro="title"/>
+          </else-if>
+        </choose>
+      </if>
+      <else>
+        <group delimiter=" ">
+          <text macro="edition-of-book"/>
+          <text macro="thesis-type"/>
+        </group>
+      </else>
+    </choose>
   </macro>
   <macro name="edition-of-book">
     <choose>
@@ -158,10 +183,7 @@
         </if>
         <else-if type="chapter paper-conference" match="any">
           <!-- NLM: In: Editor A, editor. Book title. Place: Publisher; Year. p. 1-20. -->
-          <group prefix=" " delimiter=" " suffix=".">
-            <text macro="editor"/>
-            <text variable="container-title"/>
-          </group>
+          <text macro="editor" prefix=" " suffix="."/>
           <group prefix=" " delimiter=" ">
             <text macro="publisher"/>
             <date variable="issued" suffix=".">

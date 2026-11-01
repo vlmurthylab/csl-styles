@@ -89,15 +89,19 @@ def main():
 
     def strip(s):
         """Remove what the compact styles may differ in."""
-        s = re.sub(r"<title>.*?</title>|<id>.*?</id>|<link [^>]*rel=\"self\"/>|<summary>.*?</summary>", "", s)
+        s = re.sub(r"<title>.*?</title>|<id>.*?</id>|<link [^>]*rel=\"self\"/>|<summary>.*?</summary>|<updated>.*?</updated>", "", s)
         s = re.sub(r'et-al-[a-z-]+="[^"]*"|page-range-format="[^"]*"', "", s)
         s = s.replace('<term name="page-range-delimiter">-</term>', "")
         return s.replace('<text macro="title-extras"/>', '<text macro="title"/>')
+    # Each is compared with compact-1-author.csl. That the no-title and
+    # short-pages styles really drop titles and shorten pages is checked on
+    # their output in check_citeproc_js.js (citeproc-py mangles short page
+    # ranges, printing 1-0 for 1-20, so pages aren't checked here).
     stripped = {name: strip(s).split() for name, s in compact.items()}
-    first = next(iter(stripped), None)
+    ref = "compact-1-author.csl"
     for name, words in stripped.items():
-        if words != stripped[first]:
-            failures.append(f"{name} differs from {first} beyond title, ID, summary, author rule, "
+        if ref in stripped and words != stripped[ref]:
+            failures.append(f"{name} differs from {ref} beyond title, ID, summary, dates, author rule, "
                             "article title and page ranges; keep the compact styles in step")
 
     if failures:

@@ -2,7 +2,10 @@
 // Zotero uses, with links switched on as Zotero does, and checks:
 //  - every style renders every item type;
 //  - the NIH style's output has no link, URL, DOI or access date at all;
-//  - no entry has a stray semicolon (";." or ending in ";") or a doubled edition.
+//  - no entry has a stray semicolon (";." or ending in ";") or a doubled edition;
+//  - each compact style does what its name says: no-title styles print no
+//    article title (but keep a dataset's), short-pages styles print 100-10;
+//  - a chapter with no editor still reads "In: Book title".
 // Run:  npm install citeproc@2.4.63  &&  node tests/check_citeproc_js.js
 // tests/locales-en-US.xml is the CSL project's US English locale (CC BY-SA 3.0).
 const CSL = require("citeproc");
@@ -19,6 +22,7 @@ const items = [
   { id: "pre", type: "article", title: "A made-up preprint", publisher: "medRxiv", issued: { "date-parts": [[2024]] }, author: A(2), ...web },
   { id: "pre0", type: "article", title: "A preprint with no server", issued: { "date-parts": [[2024]] }, author: A(1), ...web },
   { id: "book", type: "book", title: "A made-up book", edition: "2", publisher: "Made Up Press", "publisher-place": "Ann Arbor", issued: { "date-parts": [[2019]] }, author: A(2), ...web },
+  { id: "chap0", type: "chapter", title: "A chapter with no editor", "container-title": "A made-up volume", publisher: "Made Up Press", page: "1-20", issued: { "date-parts": [[2018]] }, author: A(1), ...web },
   { id: "chap", type: "chapter", title: "A made-up chapter", "container-title": "A made-up volume", publisher: "Made Up Press", "publisher-place": "Ann Arbor", page: "1-20", issued: { "date-parts": [[2018]] }, author: A(1), editor: A(1), ...web },
   { id: "conf", type: "paper-conference", title: "A made-up paper", "container-title": "Proceedings of Made Up", publisher: "Made Up Society", page: "5-6", issued: { "date-parts": [[2020]] }, author: A(1), ...web },
   { id: "rep", type: "report", title: "A made-up report", number: "TR-1", publisher: "Made Up Agency", "publisher-place": "Bethesda (MD)", issued: { "date-parts": [[2022]] }, author: A(1), ...web },
@@ -50,6 +54,15 @@ for (const f of styles) {
     if (/;\s*\.|;$/.test(l)) failures.push(`${f}: stray semicolon in: ${l}`);
     if ((l.match(/\bed\./g) || []).length > 1) failures.push(`${f}: edition printed twice in: ${l}`);
   });
+  const line = (id) => text[items.findIndex((i) => i.id === id)] || "";
+  if (!/In: A made-up volume/.test(line("chap0"))) failures.push(`${f}: a chapter with no editor lacks "In:": ${line("chap0")}`);
+  if (f.startsWith("compact")) {
+    const noTitle = f.includes("no-title"), short = f.includes("short-pages");
+    if (line("j5").includes("Five-author trial") === noTitle) failures.push(`${f}: article title ${noTitle ? "printed" : "missing"}: ${line("j5")}`);
+    if (!line("data").includes("A made-up dataset")) failures.push(`${f}: a dataset lost its title: ${line("data")}`);
+    const pages = short ? "100-10" : "100–110";
+    if (!line("j5").includes(pages)) failures.push(`${f}: expected pages ${pages}: ${line("j5")}`);
+  }
   if (f.startsWith("nih")) {
     for (const [what, re] of [["a link", /<a /i], ["a URL", /http|example\.org/i], ["a DOI", /doi|10\.0000/i], ["an access date", /cited|accessed|2024 Jan/i]]) {
       if (re.test(html)) failures.push(`${f}: output contains ${what} (NIH allows no hyperlinks)`);

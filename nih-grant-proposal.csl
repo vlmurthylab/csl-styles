@@ -40,6 +40,8 @@
       </substitute>
     </names>
   </macro>
+  <!-- "In: Editor A, editor. Book title" for chapters and conference papers;
+       "In:" stays even with no editor, so the book isn't read as the author's -->
   <macro name="editor">
     <group delimiter=": ">
       <choose>
@@ -47,10 +49,13 @@
           <text term="in" text-case="capitalize-first"/>
         </if>
       </choose>
-      <names variable="editor" suffix=".">
-        <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-        <label form="long" prefix=", "/>
-      </names>
+      <group delimiter=" ">
+        <names variable="editor" suffix=".">
+          <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+          <label form="long" prefix=", "/>
+        </names>
+        <text variable="container-title"/>
+      </group>
     </group>
   </macro>
   <macro name="publisher">
@@ -137,10 +142,7 @@
         </if>
         <else-if type="chapter paper-conference" match="any">
           <!-- NLM: In: Editor A, editor. Book title. Place: Publisher; Year. p. 1-20. -->
-          <group prefix=" " delimiter=" " suffix=".">
-            <text macro="editor"/>
-            <text variable="container-title"/>
-          </group>
+          <text macro="editor" prefix=" " suffix="."/>
           <group prefix=" " delimiter=" ">
             <text macro="publisher"/>
             <date variable="issued" suffix=".">
