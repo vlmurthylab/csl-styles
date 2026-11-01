@@ -2,9 +2,10 @@
 
 - Every style is well-formed XML and renders made-up references with
   citeproc-py (no real references or data are used).
-- Every style is valid against the CSL schema (the RelaxNG schema that
-  citeproc-py bundles). citeproc-py's own validate=True only warns, so the
-  check validates each style itself and fails on any error.
+- Every style is valid against the CSL schema's RelaxNG rules (the schema
+  citeproc-py bundles; its Schematron rules aren't checked). citeproc-py's own
+  validate=True only warns, so the check validates each style itself and fails
+  on any error. For a clearer message, try https://validator.citationstyles.org.
 - The NIH style never prints a URL or an access date, and prints a DOI only
   for preprints (NIH asks for it there, NOT-OD-17-050): NIH does not allow
   hyperlinks, and a printed URL or DOI can become one in Word. Checked in the
@@ -21,9 +22,8 @@ import xml.dom.minidom
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from lxml import etree
-from citeproc import SCHEMA_PATH
-from citeproc import (Citation, CitationItem, CitationStylesBibliography,
+from lxml import etree  # installed with citeproc-py
+from citeproc import (SCHEMA_PATH, Citation, CitationItem, CitationStylesBibliography,
                       CitationStylesStyle, formatter)
 from citeproc.source.json import CiteProcJSON
 
@@ -55,16 +55,34 @@ REFS = [
 ]
 
 
+def _independent_style_schema():
+    """The CSL schema, limited to independent styles (all of ours are).
+
+    The schema's root can be an independent style, a dependent style or a
+    locale; when a style fails, libxml2 reports why the dependent-style branch
+    failed, which points at the wrong element. Keeping only the
+    independent-style branch makes the errors name the real fault."""
+    rng = etree.parse(SCHEMA_PATH)
+    ns = {"r": "http://relaxng.org/ns/structure/1.0"}
+    choice = rng.find(".//r:start/r:choice", ns)
+    for ref in list(choice):
+        if ref.get("name") != "independent-style.style":
+            choice.remove(ref)
+    return etree.RelaxNG(rng)
+
+
+SCHEMA = _independent_style_schema()
+
+
 def schema_errors(style_path):
     """Errors from validating the style against the CSL schema; empty if valid."""
-    schema = etree.RelaxNG(etree.parse(SCHEMA_PATH))
-    if schema.validate(etree.parse(str(style_path))):
+    if SCHEMA.validate(etree.parse(str(style_path))):
         return []
-    return [f"line {e.line}: {e.message}" for e in schema.error_log]
+    return [f"line {e.line}: {e.message}" for e in SCHEMA.error_log]
 
 
 def render(style_path):
-    style = CitationStylesStyle(str(style_path), validate=True)  # CSL schema
+    style = CitationStylesStyle(str(style_path), validate=False)  # schema_errors() checks it
     bib = CitationStylesBibliography(style, CiteProcJSON(REFS), formatter.plain)
     for r in REFS:
         bib.register(Citation([CitationItem(r["id"])]))
@@ -83,8 +101,12 @@ def main():
         except Exception as e:
             failures.append(f"{p.name}: not well-formed XML ({e})")
             continue
-        for err in schema_errors(p):
-            failures.append(f"{p.name}: not valid against the CSL schema: {err}")
+        errors = schema_errors(p)
+        if errors:
+            # Don't render an invalid style: citeproc-py may crash on it, and
+            # the schema errors are the useful report.
+            failures += [f"{p.name}: not valid against the CSL schema: {err}" for err in errors]
+            continue
         lines = render(p)
         print(f"== {p.name}")
         for line in lines:
