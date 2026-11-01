@@ -4,7 +4,7 @@ Citation styles (CSL) for Zotero and other reference managers: an NIH grant styl
 
 | Style | File | What it does |
 |---|---|---|
-| National Institutes of Health Grant Proposal | [`nih-grant-proposal.csl`](nih-grant-proposal.csl) | NLM-style numbered references with **no hyperlinks**: no URLs, DOIs or access dates, since NIH doesn't allow links (even internal links can trigger a grants office). All authors are listed; a PMCID is printed as plain text when the item has one; preprints read "medRxiv [Preprint]. 2024." |
+| National Institutes of Health Grant Proposal | [`nih-grant-proposal.csl`](nih-grant-proposal.csl) | NLM-style numbered references for NIH applications, which allow no hyperlinks: no URLs or access dates, and a DOI only for preprints, where NIH asks for it ("medRxiv [Preprint]. 2024 Mar 13. doi: 10.1101/…"). All authors are listed; a PMCID is printed as plain text when the item has one. **Zotero makes a preprint's DOI a live link: remove it before submitting** ([below](#nih-applications)). |
 | Compact (3 Authors) | [`compact-3-authors.csl`](compact-3-authors.csl) | Tight numbered references for strict page limits with no set style (first used for Wellcome Leap grants): up to 3 authors in full; for 4 or more, the first two, an ellipsis and the last author ("A, B, … Z"); article titles; journal abbreviations, year, volume and pages. Preprints show the server and DOI (Zotero makes the DOI a link). |
 | Compact (1 Author) | [`compact-1-author.csl`](compact-1-author.csl) | The same, with only the first author and "et al." whenever there are two or more. |
 | Compact (1 Author, No Title) | [`compact-1-author-no-title.csl`](compact-1-author-no-title.csl) | The same, without titles: `Alpha A, et al. J Made-Up Med. 2021;12:100–110.` Items with nothing else to identify them (datasets, software, documents, a preprint with no server or DOI) keep their title. |
@@ -22,12 +22,28 @@ To update a style, install the new file the same way; Zotero replaces the old on
 
 **Moving from the older copies** ("National Institute of Health Grant Proposal", "Wellcome Leap Grant Proposal", "… (1 Author)", and "Grant Proposal Compact (1 Author, No Title)" with its "Short Pages" version): they have different IDs, so Zotero keeps them alongside the new ones. Remove them in Settings → Cite → Styles (select, then **−**), and in any document in progress choose the new style in Document Preferences.
 
-**NIH proposals:** a PMCID comes from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it). Check the finished bibliography for links anyway: the style prints none, but a reference pasted by hand, or Word's own autoformatting, could add one.
+## NIH applications
 
-**NIH's rules, as the style follows them** (NIH Grants Policy Statement 8.2.2 and the SF424 application guide; check the current guide and your funding opportunity before submitting):
-- **Format:** NIH requires no particular citation style and suggests NLM, which this style follows. Every author is listed, in the order they appear on the paper.
-- **No hyperlinks:** links and URLs are allowed only where the funding opportunity or form instructions say so. This style prints none. Don't use the compact styles for NIH: they shorten author lists and print DOIs, which Zotero turns into links.
-- **PMCID:** a paper you wrote that arose from NIH support must be cited with its PMCID, at the end of the reference. Within three months of publication NIH also accepts the NIHMS ID. Zotero has no field for an NIHMS ID, so add it to that reference by hand: in Word, click **Add/Edit Bibliography** on the Zotero tab once the bibliography is in place; Zotero's bibliography editor keeps the edit when the bibliography refreshes. Add `NIHMSID: NIHMS1234567.` Once the PMCID exists, put it in the item's Extra field and remove the hand edit.
+**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM / Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in four ways:
+
+| Standard NLM style | NIH's rule | This style |
+|---|---|---|
+| Prints the DOI of most journal articles, and "Available from: URL [cited date]" for web pages; Zotero turns each DOI and URL into a live link | Hyperlinks and URLs only where a funding opportunity or form instructions allow them (SF424 application guide, Format Attachments); grants offices flag links, even ones inside the document | No URL or access date anywhere; a DOI only for preprints |
+| Shortens author lists to six names and "et al." | All authors, in the order on the paper | Every author |
+| No PMCID | The applicant's own NIH-supported papers are cited with their PMCID at the end ([NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm), Grants Policy Statement 8.2.2) | PMCID as plain text, from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it) |
+| Preprints aren't marked | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI |
+
+**Before submitting: remove the preprint links.** Zotero turns any DOI a style prints into a live link, in Word and in Google Docs alike, and a style can't stop it. So each preprint's DOI arrives as a link:
+- **Word:** in a final copy, select the bibliography and press Ctrl+Shift+F9 (⌘+Shift+F9 on a Mac). That makes the links and fields in it plain text (and disconnects them from Zotero, hence the copy).
+- **Google Docs:** click each preprint DOI and choose **Remove link**.
+
+Then check the whole bibliography for links: the style prints none apart from those, but a reference pasted by hand, or Word's autoformatting, can bring one in.
+
+**NIHMS ID:** within three months of publication NIH also accepts the NIHMS ID in place of the PMCID. Zotero has no field for it, so add it to that reference by hand. In Word, click **Add/Edit Bibliography** on the Zotero tab once the bibliography is in place; Zotero's bibliography editor keeps the edit when the bibliography refreshes. Add `NIHMSID: NIHMS1234567.` Once the PMCID exists, put it in the item's Extra field and remove the hand edit.
+
+**Don't use the compact styles for NIH:** they shorten author lists and print DOIs for every item.
+
+Check the current SF424 application guide and your funding opportunity before each submission; NIH's instructions change.
 
 ## Changing a style
 

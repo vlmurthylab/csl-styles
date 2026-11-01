@@ -64,9 +64,19 @@ for (const f of styles) {
     if (!line("j5").includes(pages)) failures.push(`${f}: expected pages ${pages}: ${line("j5")}`);
   }
   if (f.startsWith("nih")) {
-    for (const [what, re] of [["a link", /<a /i], ["a URL", /http|example\.org/i], ["a DOI", /doi|10\.0000/i], ["an access date", /cited|accessed|2024 Jan/i]]) {
-      if (re.test(html)) failures.push(`${f}: output contains ${what} (NIH allows no hyperlinks)`);
-    }
+    // Only preprints may carry a DOI (NIH asks for it, NOT-OD-17-050), and so the
+    // only link; no URL or access date anywhere
+    const htmlLines = render(style, "html");
+    items.forEach((it, k) => {
+      const h = htmlLines[k], preprint = it.type === "article";
+      const checks = [["a URL", /example\.org/i], ["an access date", /cited|accessed|2024 Jan 5/i]];
+      if (!preprint) checks.push(["a link", /<a /i], ["a DOI", /doi|10\.0000/i]);
+      for (const [what, re] of checks) {
+        if (re.test(h)) failures.push(`${f}: ${it.id} contains ${what} (NIH allows no hyperlinks): ${text[k]}`);
+      }
+      if (preprint && it.DOI && !text[k].includes("doi: " + it.DOI)) failures.push(`${f}: preprint lacks its DOI: ${text[k]}`);
+      if (preprint && /<a /i.test(h) && !/href="https:\/\/doi\.org\//.test(h)) failures.push(`${f}: preprint links somewhere other than doi.org: ${text[k]}`);
+    });
   }
 }
 if (failures.length) {

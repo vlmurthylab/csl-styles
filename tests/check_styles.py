@@ -3,9 +3,10 @@
 - Every style is well-formed XML and renders made-up references with
   citeproc-py (no real references or data are used).
 - Every style is valid against the CSL schema (citeproc-py's validator).
-- The NIH style never prints a URL, DOI, "doi" or an access date: NIH does not
-  allow hyperlinks, and a printed URL or DOI can become one in Word. Checked
-  in the style's source as well as in rendered output.
+- The NIH style never prints a URL or an access date, and prints a DOI only
+  for preprints (NIH asks for it there, NOT-OD-17-050): NIH does not allow
+  hyperlinks, and a printed URL or DOI can become one in Word. Checked in the
+  style's source as well as in rendered output.
 - The compact styles differ only in their title, ID, self link, summary,
   author rule, whether they print the article title, and page-range format, so
   a fix made to one is made to all.
@@ -71,17 +72,28 @@ def main():
         if len(lines) != len(REFS):
             failures.append(f"{p.name}: rendered {len(lines)} of {len(REFS)} references")
         if p.name.startswith("nih"):
-            # Static: no element may print a URL, DOI or access date, and no "cited" term
+            # Static: no element may print a URL or access date, no "cited" term,
+            # and the only DOI is the one in the preprint branch
             src = p.read_text()
+            start = src.index('<if type="article">')
+            preprint = src[start:src.index("</if>", src.index('<text value="[Preprint]. "/>', start))]
             for m in re.finditer(r'<(text|date|number)[^>]*variable="([^"]*)"', src):
-                if re.search(r"\b(URL|DOI|accessed)\b", m.group(2)):
+                if re.search(r"\b(URL|accessed)\b", m.group(2)):
                     failures.append(f"{p.name}: prints {m.group(2)} ({m.group(0)})")
+                elif "DOI" in m.group(2).split() and m.group(0) not in preprint:
+                    failures.append(f"{p.name}: prints a DOI outside the preprint branch ({m.group(0)})")
+            if src.count('variable="DOI"') != 1:
+                failures.append(f"{p.name}: expected exactly one DOI element (preprints)")
             if re.search(r'term="(cited|accessed|retrieved)"', src):
                 failures.append(f"{p.name}: uses a cited/accessed/retrieved term")
-            text = "\n".join(lines).lower()
-            for bad in ("http", "doi", "example.org", "10.0000", "cited"):
-                if bad in text:
-                    failures.append(f"{p.name}: output contains '{bad}' (NIH allows no hyperlinks)")
+            for r, line in zip(REFS, lines):
+                text = line.lower()
+                for bad in ("http", "example.org", "cited"):
+                    if bad in text:
+                        failures.append(f"{p.name}: output contains '{bad}' (NIH allows no hyperlinks): {line}")
+                has_doi = "doi" in text or "10.0000" in text
+                if has_doi != (r["type"] == "article"):
+                    failures.append(f"{p.name}: DOI {'printed' if has_doi else 'missing'} for {r['id']}: {line}")
 
     compact = {p.name: p.read_text() for p in STYLES if p.name.startswith("compact-")}
     if len(compact) < 4:
