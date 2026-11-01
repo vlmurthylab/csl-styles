@@ -4,8 +4,8 @@
     Why not the standard NLM style (nlm-citation-sequence), which NIH suggests
     and this style is based on? Used in Zotero for an NIH application, NLM:
     - prints the DOI of every item that has one, and for everything but
-      journal articles "[cited date]. Available from: URL" too. Zotero turns
-      every printed DOI and URL into a live link. NIH allows hyperlinks and
+      journal articles "[cited date]. Available from: URL" too; pasted from
+      Zotero, each one is a live link. NIH allows hyperlinks and
       URLs only where a funding opportunity or form instructions say so
       (SF424 application guide, "Format Attachments"), and grants offices flag
       links, even ones inside the document.
@@ -25,11 +25,17 @@
     doi.org web address with a [cited] date; this style prints it as
     "doi: 10..." instead, so there is no URL.
 
-    WARNING: Zotero makes that preprint DOI a live link, in Word and in Google
-    Docs alike; a style cannot stop it. Remove those links last, in a final
-    copy, since a Zotero refresh puts them back (steps in the README). Then
-    check the whole bibliography for links: a reference pasted by hand can
-    bring one in.
+    WARNING: links. Whether that DOI is a link depends on how the references
+    get into the document, not on the style (tested with Zotero 10.0.7, see
+    docs/zotero-link-test-plan.md; steps in the README):
+    - Word, inserted with the Zotero plugin: no links, the DOI is plain text.
+    - Google Docs, inserted with the plugin: every citation and the whole
+      bibliography link to zotero.org. Run Zotero > Unlink Citations in a
+      final copy, then export that copy.
+    - Pasted from Quick Copy or Create Bibliography: DOIs and URLs are live
+      links in either editor, so never paste a bibliography.
+    Then check the final PDF for links: a reference pasted or typed by hand
+    can bring one in.
 
     A paper within three months of publication may be cited with its NIHMS ID
     instead of a PMCID; Zotero has no field for it, so add it by hand (see the
@@ -59,8 +65,8 @@
     </contributor>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>NLM-style numbered references for NIH applications, which allow no hyperlinks: no URLs or access dates, and a DOI only for preprints, where NIH asks for it. Every author is listed, and a PMCID is printed as plain text when the item has one. WARNING: Zotero makes a preprint's DOI a live link, in Word and in Google Docs; remove those links before submitting.</summary>
-    <updated>2026-11-01T12:00:00+00:00</updated>
+    <summary>NLM-style numbered references for NIH applications, which allow no hyperlinks: no URLs or access dates, and a DOI only for preprints, where NIH asks for it. Every author is listed, and a PMCID is printed as plain text when the item has one. WARNING: insert references with the Zotero plugin and never paste a bibliography (pasted DOIs are live links); in Google Docs, unlink citations in a final copy before exporting.</summary>
+    <updated>2026-11-01T20:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">

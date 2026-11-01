@@ -1,5 +1,23 @@
 # Zotero DOI/URL links: test plan for Word and Google Docs
 
+## Results (November 2026): predictions confirmed
+
+Tested with Zotero 10.0.7 on Windows, Word for Microsoft 365 (Version 2608, 64-bit) and Google Docs in Chrome 156, using the NLM style. The test used real published items (a journal article, a medRxiv preprint saved in Zotero as a Journal Article, and a web page) instead of made-up ones; they're described here by type only. Claude listed every link stored in each file: the `.docx`, the Web page download and the PDFs.
+
+| | Part A: inserted with the plugin | Part B: pasted from Quick Copy |
+|---|---|---|
+| **Word** (`.docx` and PDF from Save As → PDF, Standard) | **No links.** The DOIs and the URL are plain text inside Zotero's citation and bibliography fields. | **Live links:** each DOI to `https://doi.org/10.…` (the text reads `doi:10.…`, so the link can only have come from Zotero) and the URL to itself. Stored as ordinary Word hyperlinks. |
+| **Google Docs** (PDF, Web page and `.docx` downloads) | **Every citation and the whole bibliography link to `https://www.zotero.org/google-docs/?<key>`**: one link per citation, and one shared by every bibliography line. The DOIs sit inside that link, so they're clickable, but go to zotero.org. No doi.org links. | **Live links**, as in Word: DOIs to doi.org, the URL to itself. |
+| **Google Docs copy after Zotero → Unlink Citations** | **No links.** | **The links stay**, since they aren't Zotero's. |
+
+Notes:
+- All three predictions held. Word's auto-format wasn't tested: nothing was typed in the bibliographies.
+- Google Docs' `.docx` download keeps the zotero.org links as ordinary hyperlinks but drops Zotero's fields, so Zotero can't update that copy. Its Web page download routes every link through `google.com/url?q=…`.
+- In a first try, Quick Copy was set to another style that prints no DOIs, so only URLs were pasted; it was redone with NLM.
+- Not tested directly: this repository's `nih-grant-proposal.csl` (the preprint was saved as a Journal Article, so the NIH style wouldn't have printed its DOI), a Mac, and LibreOffice. The links are made by Zotero's plugins and Quick Copy, not by the style, so the results should carry over; the README asks for a check of the final PDF either way.
+
+**What this means for NIH applications** (now in the README and the warning in `nih-grant-proposal.csl`): in Word, insert references with the plugin and nothing needs removing; in Google Docs, run Unlink Citations in a final copy before exporting; never paste a bibliography from Quick Copy or Create Bibliography. The test plan follows, as it was run.
+
 ## Why we're testing
 
 NIH applications must have no hyperlinks, but preprints must be cited with their DOI. The plan was to propose a Zotero document preference to stop linking DOIs and URLs. Reading Zotero's code (zotero/zotero, release 10.0.7, October 2026) suggests that preference would change nothing. These tests check where the links really come from before we propose anything.
@@ -56,7 +74,7 @@ Don't type in or edit the bibliography text, and don't click Refresh after pasti
 **Word**
 1. The saved `.docx`, citations still live.
 2. A PDF made with the exact route below. The route matters: some routes drop all links, which would make the test look clean for the wrong reason.
-   - Windows: File → Save As → PDF.
+   - Windows: File → Save As → PDF, with "Optimize for" left at Standard.
    - Mac: File → Save As → File Format "PDF" → "Best for electronic distribution and accessibility". Not File → Print → Save as PDF, which drops links.
 
 **Google Docs** (every download is a conversion; Google's own format can't be downloaded)
@@ -79,7 +97,7 @@ The uploaded files stay in the session and aren't committed to any repository.
 
 ## After the results
 
-Record the results in this file and update the README's "Before submitting" steps and the warning in `nih-grant-proposal.csl` to match.
+Record the results in this file and update the README's "Before submitting" steps and the warning in `nih-grant-proposal.csl` to match. (Done: see **Results** at the top.)
 
 - **Predictions confirmed:** the advice becomes "insert with the plugin, don't paste from Quick Copy; in Google Docs, unlink a final copy before exporting". The code change worth proposing is optional linking in Quick Copy and Create Bibliography (Zotero's local API already has an opt-in `linkwrap` parameter). Claude writes a design and a draft forum post for review; nothing is posted without approval.
 - **Plugin-inserted DOIs show up as links:** find the source in the files and go back to the per-document preference idea.
