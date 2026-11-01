@@ -24,7 +24,7 @@ To update a style, install the new file the same way; Zotero replaces the old on
 
 ## NIH applications
 
-**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM / Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in three ways:
+**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM/Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in three ways:
 
 | Standard NLM style | NIH's rule | This style |
 |---|---|---|
