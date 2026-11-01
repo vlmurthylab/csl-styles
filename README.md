@@ -24,12 +24,12 @@ To update a style, install the new file the same way; Zotero replaces the old on
 
 ## NIH applications
 
-**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM/Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in three ways:
+**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM/Vancouver" (`nlm-citation-sequence`). NIH requires no particular citation format ("We do not require a specific citation format", [Format Attachments](https://grants.nih.gov/grants-process/write-application/how-to-apply-application-guide/format-attachments)), but plain NLM breaks two of its rules for the bibliography, and this style makes one choice of its own:
 
 | Standard NLM style | NIH's rule | This style |
 |---|---|---|
-| Prints the DOI of every item that has one, and for everything but journal articles "[cited date]. Available from: URL"; pasted from Zotero, each one is a live link | Hyperlinks and URLs only where a funding opportunity or form instructions allow them (SF424 application guide, Format Attachments); grants offices flag links, even ones inside the document | No URL or access date anywhere; a DOI only for preprints |
-| Shortens author lists to six names and "et al." | All authors, in the order on the paper | Every author |
+| Prints the DOI of every item that has one, and for everything but journal articles "[cited date]. Available from: URL"; pasted from Zotero, each one is a live link | "Use of hyperlinks and URLs in this section is not allowed unless specified in the Notice of Funding Opportunity" (Bibliography & References Cited, [G.220](https://grants.nih.gov/grants/how-to-apply-application-guide/forms-i/general/g.220-r&r-other-project-information-form.htm)); grants offices flag links, even ones inside the document | No URL or access date anywhere; a DOI only for preprints |
+| Shortens author lists to six names and "et al." | Authors in the order on the paper; "et al." is acceptable ([Format Attachments](https://grants.nih.gov/grants-process/write-application/how-to-apply-application-guide/format-attachments)) | Every author: a choice, not an NIH rule |
 | Preprints aren't marked, even when saved as Zotero's Preprint type: "[Internet]. medRxiv; 2024. Available from: URL doi:…", with the year only | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI (with no DOI, the Archive ID, such as an arXiv number). NIH's own example gives the DOI as a doi.org address with a [cited] date; this style prints `doi: 10…` instead, so there is no URL |
 
 Plain NLM does print the PMCID ("PubMed Central PMCID: …"), which the [NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm) (Grants Policy Statement 8.2.2) requires, at the end of the reference, for your own NIH-supported papers. This style keeps it as plain `PMCID: PMC…`, taken from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it).
@@ -44,8 +44,6 @@ At a glance, with references inserted with the Zotero plugin (✅ meets NIH's ru
 <tbody>
 <tr><td>No hyperlinks</td><td align="center">✅</td><td align="center">❌</td><td align="center">✅</td><td align="center">❌</td></tr>
 <tr><td>No URLs</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
-<tr><td>No access dates</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
-<tr><td>All authors listed</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
 <tr><td>Preprints marked "[Preprint]"</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
 <tr><td>Preprint dated by the version cited</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
 <tr><td>Preprint DOI</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr>
@@ -53,7 +51,7 @@ At a glance, with references inserted with the Zotero plugin (✅ meets NIH's ru
 </tbody>
 </table>
 
-Google Docs fails "No hyperlinks" with either style because of Zotero's own links to zotero.org, which **Zotero → Unlink Citations** removes (see the "Before submitting" step below); the style can't change that. For the three preprint rows, the item must be saved in Zotero as a Preprint, with its posting date (see "Preprints" below).
+Not NIH rules, so not in the table: this style also lists every author (NIH accepts "et al.") and prints no access dates (NIH allows a cited date for a preprint "if relevant"). Google Docs fails "No hyperlinks" with either style because of Zotero's own links to zotero.org, which **Zotero → Unlink Citations** removes (see the "Before submitting" step below); the style can't change that. For the three preprint rows, the item must be saved in Zotero as a Preprint, with its posting date (see "Preprints" below).
 
 **Preprints:** save each one in Zotero as item type **Preprint**, with **Repository** set to the server (e.g. medRxiv) and **Date** set to the posting date of the version you cite (the version's page on the server shows it). Imports sometimes arrive as Journal Article, and the style then prints no "[Preprint]" and no DOI: change **Item Type** at the top of the item pane to Preprint, then fill in Repository and Date.
 
@@ -77,7 +75,7 @@ Then check the final PDF for links: hover over each reference, since Zotero's Go
 
 **NIHMS ID:** within three months of publication NIH also accepts the NIHMS ID in place of the PMCID. Zotero has no field for it, so add it to that reference by hand. In Word, click **Add/Edit Bibliography** on the Zotero tab once the bibliography is in place; Zotero's bibliography editor keeps the edit when the bibliography refreshes. Add `NIHMSID: NIHMS1234567.` Once the PMCID exists, put it in the item's Extra field and remove the hand edit.
 
-**Don't use the compact styles for NIH:** they shorten author lists and print DOIs for every item.
+**Don't use the compact styles for NIH:** they don't mark preprints as NIH asks or print the PMCID.
 
 Check the current SF424 application guide and your funding opportunity before each submission; NIH's instructions change.
 

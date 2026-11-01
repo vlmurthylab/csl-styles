@@ -5,12 +5,11 @@
     and this style is based on? Used in Zotero for an NIH application, NLM:
     - prints the DOI of every item that has one, and for everything but
       journal articles "[cited date]. Available from: URL" too; pasted from
-      Zotero, each one is a live link. NIH allows hyperlinks and
-      URLs only where a funding opportunity or form instructions say so
-      (SF424 application guide, "Format Attachments"), and grants offices flag
-      links, even ones inside the document.
-    - shortens author lists of seven or more to six names and "et al." NIH's
-      instructions have asked for all authors, in the order on the paper.
+      Zotero, each one is a live link. NIH's instructions for the
+      Bibliography & References Cited attachment (G.220) say: "Use of
+      hyperlinks and URLs in this section is not allowed unless specified in
+      the Notice of Funding Opportunity." Grants offices flag links, even ones
+      inside the document.
     - doesn't mark preprints: even saved as Zotero's Preprint type, it prints
       "[Internet]. medRxiv; 2024. Available from: URL doi:...", with the year
       only. NIH asks for preprints to be cited with "[Preprint]", a date for
@@ -18,6 +17,10 @@
     (NLM does print the PMCID, as "PubMed Central PMCID", which the NIH Public
     Access Policy requires for the applicant's NIH-supported papers; this
     style keeps it, as plain "PMCID: PMC...".)
+
+    NIH requires no particular citation format, and accepts "et al." in
+    place of all authors ("Format Attachments"). This style lists every
+    author anyway, in the order on the paper: a choice, not an NIH rule.
 
     So this style prints no URL or access date anywhere, lists every author,
     prints the PMCID from the item's Extra field, and gives preprints the
@@ -57,6 +60,7 @@
     <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/nih-grant-proposal.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/nlm-citation-sequence" rel="template"/>
     <link href="https://grants.nih.gov/grants-process/write-application/how-to-apply-application-guide/format-attachments" rel="documentation"/>
+    <link href="https://grants.nih.gov/grants/how-to-apply-application-guide/forms-i/general/g.220-r&amp;r-other-project-information-form.htm" rel="documentation"/>
     <link href="https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html" rel="documentation"/>
     <link href="https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm" rel="documentation"/>
     <author>
@@ -74,7 +78,7 @@
     <category citation-format="numeric"/>
     <category field="medicine"/>
     <summary>NLM-style numbered references for NIH applications, which allow no hyperlinks: no URLs or access dates, and a DOI only for preprints, where NIH asks for it. Every author is listed, and a PMCID is printed as plain text when the item has one. WARNING: insert references with the Zotero plugin and never paste a bibliography (pasted DOIs are live links); in Google Docs, unlink citations in a final copy before exporting.</summary>
-    <updated>2026-11-01T20:00:00+00:00</updated>
+    <updated>2026-11-01T21:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
