@@ -24,6 +24,11 @@ To update a style, install the new file the same way; Zotero replaces the old on
 
 **NIH proposals:** a PMCID comes from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it). Check the finished bibliography for links anyway: the style prints none, but a reference pasted by hand, or Word's own autoformatting, could add one.
 
+**NIH's rules, as the style follows them** (NIH Grants Policy Statement 8.2.2 and the SF424 application guide; check the current guide and your funding opportunity before submitting):
+- **Format:** NIH requires no particular citation style and suggests NLM, which this style follows. Every author is listed, in the order they appear on the paper.
+- **No hyperlinks:** links and URLs are allowed only where the funding opportunity or form instructions say so. This style prints none. Don't use the compact styles for NIH: they shorten author lists and print DOIs, which Zotero turns into links.
+- **PMCID:** a paper you wrote that arose from NIH support must be cited with its PMCID, at the end of the reference. Within three months of publication NIH also accepts the NIHMS ID. Zotero has no field for an NIHMS ID, so add it to that reference by hand: in Word, click **Add/Edit Bibliography** on the Zotero tab once the bibliography is in place; Zotero's bibliography editor keeps the edit when the bibliography refreshes. Add `NIHMSID: NIHMS1234567.` Once the PMCID exists, put it in the item's Extra field and remove the hand edit.
+
 ## Changing a style
 
 - The compact styles are identical apart from their title, ID, summary, the author rule (`et-al-...`), whether they print the title (`title` or `title-extras` in the bibliography) and the page-range format. Make any other change to all four.
