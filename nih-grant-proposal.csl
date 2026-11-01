@@ -28,12 +28,15 @@
     WARNING: links. Whether that DOI is a link depends on how the references
     get into the document, not on the style (tested with Zotero 10.0.7, see
     docs/zotero-link-test-plan.md; steps in the README):
-    - Word, inserted with the Zotero plugin: no links, the DOI is plain text.
+    - Word, inserted with the Zotero plugin: no links, the DOI is plain text
+      (tested on Windows; Mac not tested).
     - Google Docs, inserted with the plugin: every citation and the whole
       bibliography link to zotero.org. Run Zotero > Unlink Citations in a
       final copy, then export that copy.
-    - Pasted from Quick Copy or Create Bibliography: DOIs and URLs are live
-      links in either editor, so never paste a bibliography.
+    - Pasted from Quick Copy: DOIs link to doi.org and URLs to themselves,
+      in either editor, and unlinking leaves them. Create Bibliography wasn't
+      tested but works the same way in Zotero's code. Never paste a
+      bibliography.
     Then check the final PDF for links: a reference pasted or typed by hand
     can bring one in.
 
@@ -201,8 +204,9 @@
               <!-- Preprint, as NIH asks (NOT-OD-17-050): the server's name (Zotero's
                    Repository field), "[Preprint]", the posting date (which identifies
                    the version) and the DOI. This is the only DOI the style prints, and
-                   never a URL: Zotero makes the DOI a link in Word, so the README says
-                   how to turn it into plain text before submitting. -->
+                   never a URL. Inserted with the Word plugin the DOI is plain text;
+                   pasted from Quick Copy it becomes a link (see the warning at
+                   the top and the README). -->
               <choose>
                 <if variable="publisher">
                   <text variable="publisher" prefix=" " suffix=" "/>

@@ -1,5 +1,5 @@
 // Renders made-up references through every style with citeproc-js, the engine
-// Zotero uses, with links switched on as Zotero does, and checks:
+// Zotero uses, with links switched on as Zotero's Quick Copy does, and checks:
 //  - every style renders every item type;
 //  - the NIH style prints no URL or access date for any CSL item type, and a
 //    DOI (the only link) for preprints alone;
@@ -36,7 +36,7 @@ const byId = Object.fromEntries(items.map((i) => [i.id, i]));
 
 function render(style, fmt) {
   const eng = new CSL.Engine({ retrieveLocale: () => locale, retrieveItem: (id) => byId[id] }, style);
-  eng.opt.development_extensions.wrap_url_and_doi = true; // as Zotero does
+  eng.opt.development_extensions.wrap_url_and_doi = true; // as Zotero's Quick Copy does
   eng.setOutputFormat(fmt);
   eng.updateItems(items.map((i) => i.id));
   return eng.makeBibliography()[1].map((l) => l.trim());

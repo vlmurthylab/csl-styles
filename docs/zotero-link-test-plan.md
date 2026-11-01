@@ -6,12 +6,12 @@ Tested with Zotero 10.0.7 on Windows, Word for Microsoft 365 (Version 2608, 64-b
 
 | | Part A: inserted with the plugin | Part B: pasted from Quick Copy |
 |---|---|---|
-| **Word** (`.docx` and PDF from Save As → PDF, Standard) | **No links.** The DOIs and the URL are plain text inside Zotero's citation and bibliography fields. | **Live links:** each DOI to `https://doi.org/10.…` (the text reads `doi:10.…`, so the link can only have come from Zotero) and the URL to itself. Stored as ordinary Word hyperlinks. |
+| **Word** (`.docx` and PDF from Save As → PDF, Standard) | **No links.** The DOIs and the URL are plain text inside Zotero's citation and bibliography fields. | **Live links:** each DOI to `https://doi.org/10.…` (the link covers the bare `10.…` after a plain `doi:`, and `https://doi.org/` isn't in the text, so it came from Zotero, not Word's autoformat) and the URL to itself. Stored as ordinary Word hyperlinks. |
 | **Google Docs** (PDF, Web page and `.docx` downloads) | **Every citation and the whole bibliography link to `https://www.zotero.org/google-docs/?<key>`**: one link per citation, and one shared by every bibliography line. The DOIs sit inside that link, so they're clickable, but go to zotero.org. No doi.org links. | **Live links**, as in Word: DOIs to doi.org, the URL to itself. |
 | **Google Docs copy after Zotero → Unlink Citations** | **No links.** | **The links stay**, since they aren't Zotero's. |
 
 Notes:
-- All three predictions held. Word's auto-format wasn't tested: nothing was typed in the bibliographies.
+- All three predictions held, for Quick Copy; Create Bibliography wasn't tested (Zotero's code treats it the same way). Word's auto-format wasn't tested: nothing was typed in the bibliographies.
 - Google Docs' `.docx` download keeps the zotero.org links as ordinary hyperlinks but drops Zotero's fields, so Zotero can't update that copy. Its Web page download routes every link through `google.com/url?q=…`.
 - In a first try, Quick Copy was set to another style that prints no DOIs, so only URLs were pasted; it was redone with NLM.
 - Not tested directly: this repository's `nih-grant-proposal.csl` (the preprint was saved as a Journal Article, so the NIH style wouldn't have printed its DOI), a Mac, and LibreOffice. The links are made by Zotero's plugins and Quick Copy, not by the style, so the results should carry over; the README asks for a check of the final PDF either way.
@@ -22,7 +22,7 @@ Notes:
 
 NIH applications must have no hyperlinks, but preprints must be cited with their DOI. The plan was to propose a Zotero document preference to stop linking DOIs and URLs. Reading Zotero's code (zotero/zotero, release 10.0.7, October 2026) suggests that preference would change nothing. These tests check where the links really come from before we propose anything.
 
-They also test this repository's README ("Before submitting: remove the preprint links") and the warning at the top of `nih-grant-proposal.csl`, which say Zotero turns any printed DOI into a live link in Word and Google Docs. Both get updated once the results are in. **Until then, keep following the README's steps:** removing links does no harm if there turn out to be none.
+They also test this repository's README ("Before submitting: remove the preprint links") and the warning at the top of `nih-grant-proposal.csl`, which say Zotero turns any printed DOI into a live link in Word and Google Docs. Both were updated with the results.
 
 What the code suggests:
 
