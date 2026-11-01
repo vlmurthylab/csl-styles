@@ -64,6 +64,7 @@ Check the current SF424 application guide and your funding opportunity before ea
 | `SAMPLES.md` | generated samples of every style |
 | `tests/` | the checks, and the CSL project's US English locale they use |
 | `scripts/make_samples.js` | writes SAMPLES.md |
+| `docs/` | notes, such as the plan for testing where Zotero's DOI and URL links come from |
 | `hooks/`, `tools/`, `.github/`, `data/` | the lab's shared safeguards (see below); `data/` holds only its README, and never data |
 
 ## Where these came from
