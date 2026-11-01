@@ -37,6 +37,15 @@ Plain NLM does print the PMCID ("PubMed Central PMCID: …"), which the [NIH Pub
 **Preprints:** save each one in Zotero as item type **Preprint**, with **Repository** set to the server (e.g. medRxiv) and **Date** set to the posting date of the version you cite (the version's page on the server shows it). Imports sometimes arrive as Journal Article; the style then prints no "[Preprint]" and no DOI.
 
 **Before submitting: make sure there are no links.** We tested where Zotero's links come from (Zotero 10.0.7, Word on Windows, Google Docs, with plain NLM and with this style; [results](docs/zotero-link-test-plan.md#results-november-2026-predictions-confirmed)). The style doesn't decide it; how the references get into the document does:
+
+| How the references got into the document | Journal articles, web pages and other items | Preprint DOI |
+|---|---|---|
+| Word, inserted with the Zotero plugin | ✅ no link | ✅ no link (plain text) |
+| Google Docs, inserted with the plugin | ❌ the whole reference links to zotero.org | ❌ the whole reference links to zotero.org |
+| Google Docs, after **Zotero → Unlink Citations** | ✅ no link | ✅ no link |
+| Pasted from Quick Copy or Create Bibliography (Word or Google Docs) | ✅ no link (this style prints no DOI or URL for them) | ❌ live link to doi.org, and unlinking doesn't remove it |
+
+✅ means ready to submit; ❌ means a link is still there. So:
 - **Word:** references inserted with the Zotero plugin (citations, then **Add/Edit Bibliography**) carry no links; the preprint DOI is plain text. Nothing to remove. (Tested on Windows; Word on a Mac wasn't tested.)
 - **Google Docs:** the Zotero plugin links every citation and the whole bibliography to zotero.org, to keep track of them, and the preprint DOI sits inside that link. Last of all, make a copy, run **Zotero → Unlink Citations** in it, and download or export that copy. Unlinking removes every Zotero link but disconnects the copy from Zotero, hence the copy.
 - **Never paste a bibliography** from Quick Copy (Ctrl+Shift+C) or Create Bibliography: in both editors pasted DOIs become live links to doi.org and URLs link to themselves, and Unlink Citations doesn't remove them. (Create Bibliography wasn't tested, but works the same way in Zotero's code.)
