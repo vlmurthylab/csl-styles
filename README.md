@@ -24,7 +24,7 @@ To update a style, install the new file the same way; Zotero replaces the old on
 
 ## NIH applications
 
-**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM / Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in three ways:
+**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM/Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in three ways:
 
 | Standard NLM style | NIH's rule | This style |
 |---|---|---|
@@ -64,6 +64,7 @@ Check the current SF424 application guide and your funding opportunity before ea
 | `SAMPLES.md` | generated samples of every style |
 | `tests/` | the checks, and the CSL project's US English locale they use |
 | `scripts/make_samples.js` | writes SAMPLES.md |
+| `docs/` | notes, such as the plan for testing where Zotero's DOI and URL links come from |
 | `hooks/`, `tools/`, `.github/`, `data/` | the lab's shared safeguards (see below); `data/` holds only its README, and never data |
 
 ## Where these came from
