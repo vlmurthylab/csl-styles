@@ -16,7 +16,7 @@ Notes:
 - In a first try, Quick Copy was set to another style that prints no DOIs, so only URLs were pasted; it was redone with NLM.
 - Not tested: a Mac and LibreOffice. The links are made by Zotero's plugins and Quick Copy, not by the style, so the results should carry over; the README asks for a check of the final PDF either way.
 
-**Then with this repository's `nih-grant-proposal.csl`** (same setup, with the preprint's item type changed to Preprint, its Repository set to medRxiv and its Date to the posting date of the version cited; Part B pasted from Quick Copy set to the NIH style):
+**Then with this repository's `national-institutes-of-health-grant-proposals.csl`** (same setup, with the preprint's item type changed to Preprint, its Repository set to medRxiv and its Date to the posting date of the version cited; Part B pasted from Quick Copy set to the NIH style):
 
 | | Part A: inserted with the plugin | Part B: pasted from Quick Copy |
 |---|---|---|
@@ -26,13 +26,13 @@ Notes:
 
 **And NLM again, with the preprint saved as a Preprint** (Word `.docx` and PDF, Google Docs PDF, Web page and `.docx` downloads, PDF after unlinking): the links behave exactly as in the first round (none from the plugin in Word, zotero.org in Google Docs until unlinked, live links when pasted, now including the preprint's URL, which NLM prints for this type). NLM still doesn't mark the preprint: it prints "[Internet]. medRxiv; [year]. … Available from: URL doi:…", with the year only (the Google Docs copy still showed the earlier year, as its bibliography hadn't been refreshed after the item's Date was changed), which matches what citeproc-js gives for a made-up preprint. So the README's case for the NIH style holds.
 
-**What this means for NIH applications** (now in the README and the warning in `nih-grant-proposal.csl`): in Word, insert references with the plugin and nothing needs removing; in Google Docs, run Unlink Citations in a final copy before exporting; never paste a bibliography from Quick Copy or Create Bibliography. The test plan follows, as it was run.
+**What this means for NIH applications** (now in the README and the warning in `national-institutes-of-health-grant-proposals.csl`): in Word, insert references with the plugin and nothing needs removing; in Google Docs, run Unlink Citations in a final copy before exporting; never paste a bibliography from Quick Copy or Create Bibliography. The test plan follows, as it was run.
 
 ## Why we're testing
 
 NIH applications must have no hyperlinks, but preprints must be cited with their DOI. The plan was to propose a Zotero document preference to stop linking DOIs and URLs. Reading Zotero's code (zotero/zotero, release 10.0.7, October 2026) suggests that preference would change nothing. These tests check where the links really come from before we propose anything.
 
-They also test this repository's README ("Before submitting: remove the preprint links") and the warning at the top of `nih-grant-proposal.csl`, which say Zotero turns any printed DOI into a live link in Word and Google Docs. Both were updated with the results.
+They also test this repository's README ("Before submitting: remove the preprint links") and the warning at the top of `national-institutes-of-health-grant-proposals.csl`, which say Zotero turns any printed DOI into a live link in Word and Google Docs. Both were updated with the results.
 
 What the code suggests:
 
@@ -50,7 +50,7 @@ Use **NLM/Vancouver**, listed in Zotero as "NLM/Vancouver: Citing Medicine 2nd e
 - journal articles with a DOI: a bare `doi:10.…`, no URL;
 - other types (preprints, web pages, reports): `Available from: https://…`, `[cited …]` with the Accessed date, if set, and `doi:…` if there is one.
 
-Recommended as well: one more Word document and one more Google Doc in this repository's `nih-grant-proposal.csl`, part A only, with the same uploads. That's the exact grant setup and the case the README warning is about (it prints a DOI only for preprints, as `doi: 10…`). Install it first, as in the README's "Installing in Zotero".
+Recommended as well: one more Word document and one more Google Doc in this repository's `national-institutes-of-health-grant-proposals.csl`, part A only, with the same uploads. That's the exact grant setup and the case the README warning is about (it prints a DOI only for preprints, as `doi: 10…`). Install it first, as in the README's "Installing in Zotero".
 
 ## Test items (the same in every document)
 
@@ -107,7 +107,7 @@ The uploaded files stay in the session and aren't committed to any repository.
 
 ## After the results
 
-Record the results in this file and update the README's "Before submitting" steps and the warning in `nih-grant-proposal.csl` to match. (Done: see **Results** at the top.)
+Record the results in this file and update the README's "Before submitting" steps and the warning in `national-institutes-of-health-grant-proposals.csl` to match. (Done: see **Results** at the top.)
 
 - **Predictions confirmed:** the advice becomes "insert with the plugin, don't paste from Quick Copy; in Google Docs, unlink a final copy before exporting". The code change worth proposing is optional linking in Quick Copy and Create Bibliography (Zotero's local API already has an opt-in `linkwrap` parameter). Claude writes a design and a draft forum post for review; nothing is posted without approval.
 - **Plugin-inserted DOIs show up as links:** find the source in the files and go back to the per-document preference idea.

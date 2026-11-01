@@ -25,6 +25,9 @@ from citeproc.source.json import CiteProcJSON
 
 ROOT = Path(__file__).resolve().parent.parent
 STYLES = sorted(ROOT.glob("*.csl"))
+# The NIH style's extra rules apply to this file; the check fails if it goes
+# missing, so a rename can't silently skip them.
+NIH = "national-institutes-of-health-grant-proposals.csl"
 
 # Made-up references covering the item types the styles handle differently.
 REFS = [
@@ -60,6 +63,8 @@ def main():
     failures = []
     if not STYLES:
         failures.append("no .csl files found")
+    if NIH not in [p.name for p in STYLES]:
+        failures.append(f"{NIH} not found: its NIH rules weren't checked")
     for p in STYLES:
         try:
             xml.dom.minidom.parse(str(p))
@@ -72,7 +77,7 @@ def main():
             print("   " + line)
         if len(lines) != len(REFS):
             failures.append(f"{p.name}: rendered {len(lines)} of {len(REFS)} references")
-        if p.name.startswith("nih"):
+        if p.name == NIH:
             # Static, read with an XML parser so quoting and spacing can't hide
             # anything: no element may print a URL or access date, no "cited"
             # term, and the only DOI is inside the preprint branch

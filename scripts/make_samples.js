@@ -82,7 +82,7 @@ const lines = [
   "",
 ];
 // NIH first, then the compact styles from least to most compact
-const ORDER = ["nih-grant-proposal.csl", "compact-3-authors.csl", "compact-1-author.csl",
+const ORDER = ["national-institutes-of-health-grant-proposals.csl", "compact-3-authors.csl", "compact-1-author.csl",
   "compact-1-author-no-title.csl", "compact-1-author-no-title-short-pages.csl"];
 const rank = (f) => (ORDER.includes(f) ? ORDER.indexOf(f) : ORDER.length);
 const styles = fs.readdirSync(root).filter((f) => f.endsWith(".csl")).sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));

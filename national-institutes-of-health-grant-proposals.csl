@@ -57,10 +57,10 @@
     each submission.
   -->
   <info>
-    <title>National Institutes of Health Grant Proposal</title>
-    <title-short>NIH Grant</title-short>
-    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/nih-grant-proposal.csl</id>
-    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/nih-grant-proposal.csl" rel="self"/>
+    <title>National Institutes of Health (grant proposals)</title>
+    <title-short>NIH</title-short>
+    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/national-institutes-of-health-grant-proposals.csl</id>
+    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/national-institutes-of-health-grant-proposals.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/nlm-citation-sequence" rel="template"/>
     <link href="https://grants.nih.gov/grants-process/write-application/how-to-apply-application-guide/format-attachments" rel="documentation"/>
     <link href="https://grants.nih.gov/grants/how-to-apply-application-guide/forms-i/general/g.220-r&amp;r-other-project-information-form.htm" rel="documentation"/>
@@ -81,7 +81,7 @@
     <category citation-format="numeric"/>
     <category field="medicine"/>
     <summary>NLM-style numbered references for NIH applications, which allow no active hyperlinks: no URLs or access dates, so nothing can become a link, and a DOI only for preprints, where NIH asks for it. Every author is listed, and a PMCID is printed as plain text when the item has one. WARNING: insert references with the Zotero plugin and never paste a bibliography (pasted DOIs are live links); in Google Docs, unlink citations in a final copy before exporting.</summary>
-    <updated>2026-11-01T21:00:00+00:00</updated>
+    <updated>2026-11-01T22:30:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -208,7 +208,10 @@
               <date-part name="year"/>
             </date>
           </group>
-          <text variable="page" prefix=" p. " suffix="."/>
+          <group prefix=" " delimiter=" " suffix=".">
+            <label variable="page" form="short" plural="never"/>
+            <text variable="page"/>
+          </group>
         </else-if>
         <else>
           <choose>
@@ -227,7 +230,7 @@
                   <text variable="archive" prefix=" " suffix=" "/>
                 </else-if>
               </choose>
-              <text value="[Preprint]."/>
+              <text term="preprint" text-case="capitalize-first" prefix="[" suffix="]."/>
               <group prefix=" " delimiter=" ">
                 <date variable="issued" delimiter=" " suffix=".">
                   <date-part name="year"/>

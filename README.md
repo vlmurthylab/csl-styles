@@ -4,7 +4,7 @@ Citation styles (CSL) for Zotero and other reference managers: an NIH grant styl
 
 | Style | File | What it does |
 |---|---|---|
-| National Institutes of Health Grant Proposal | [`nih-grant-proposal.csl`](nih-grant-proposal.csl) | NLM-style numbered references for NIH applications, which allow no active hyperlinks: no URLs or access dates, so nothing can become a link, and a DOI only for preprints, where NIH asks for it ("medRxiv [Preprint]. 2024 Mar 13. doi: 10.1101/…"). All authors are listed; a PMCID is printed as plain text when the item has one. **Insert references with the Zotero plugin, never paste a bibliography, and in Google Docs unlink a final copy** ([below](#nih-applications)). |
+| National Institutes of Health (grant proposals) | [`national-institutes-of-health-grant-proposals.csl`](national-institutes-of-health-grant-proposals.csl) | NLM-style numbered references for NIH applications, which allow no active hyperlinks: no URLs or access dates, so nothing can become a link, and a DOI only for preprints, where NIH asks for it ("medRxiv [Preprint]. 2024 Mar 13. doi: 10.1101/…"). All authors are listed; a PMCID is printed as plain text when the item has one. **Insert references with the Zotero plugin, never paste a bibliography, and in Google Docs unlink a final copy** ([below](#nih-applications)). |
 | Compact (3 Authors) | [`compact-3-authors.csl`](compact-3-authors.csl) | Tight numbered references for strict page limits with no set style (first used for Wellcome Leap grants): up to 3 authors in full; for 4 or more, the first two, an ellipsis and the last author ("A, B, … Z"); article titles; journal abbreviations, year, volume and pages. Preprints show the server and DOI (a link if pasted; see [NIH applications](#nih-applications)). |
 | Compact (1 Author) | [`compact-1-author.csl`](compact-1-author.csl) | The same, with only the first author and "et al." whenever there are two or more. |
 | Compact (1 Author, No Title) | [`compact-1-author-no-title.csl`](compact-1-author-no-title.csl) | The same, without titles: `Alpha A, et al. J Made-Up Med. 2021;12:100–110.` Items with nothing else to identify them (datasets, software, documents, a preprint with no server or DOI) keep their title. |
@@ -19,6 +19,8 @@ The compact styles go from least to most compact. All of them put superscript ci
 3. In Word: **Zotero** tab → **Document Preferences** → choose the style.
 
 To update a style, install the new file the same way; Zotero replaces the old one, because each style's ID is its address in this repository. Zotero doesn't update these automatically.
+
+**Renamed NIH style:** "National Institutes of Health Grant Proposal" (`nih-grant-proposal.csl`) became "National Institutes of Health (grant proposals)", the name it was offered under to the official CSL repository. Its ID changed with the file name, so Zotero keeps both. If you installed the old one: install this one, choose it in Document Preferences in every document in progress, then remove the old one in Settings → Cite → Styles (select, then **−**).
 
 **Moving from the older copies** ("National Institute of Health Grant Proposal", "Wellcome Leap Grant Proposal", "… (1 Author)", and "Grant Proposal Compact (1 Author, No Title)" with its "Short Pages" version): they have different IDs, so Zotero keeps them alongside the new ones. Remove them in Settings → Cite → Styles (select, then **−**), and in any document in progress choose the new style in Document Preferences.
 
@@ -101,7 +103,7 @@ Check the current SF424 application guide and your funding opportunity before ea
 
 ## Where these came from
 
-The styles grew out of the official CSL repository's NLM-based styles, whose authors are credited in each file. The Clinical Nuclear Medicine style that the lab wrote earlier is in the official repository already, so Zotero users can install it from there. The NIH style may be offered there too.
+The styles grew out of the official CSL repository's NLM-based styles, whose authors are credited in each file. The Clinical Nuclear Medicine style that the lab wrote earlier is in the official repository already, so Zotero users can install it from there. The NIH style has been offered there as "National Institutes of Health (grant proposals)".
 
 ## License
 
