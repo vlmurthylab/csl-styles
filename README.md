@@ -20,7 +20,7 @@ The compact styles go from least to most compact. All of them put superscript ci
 
 To update a style, install the new file the same way; Zotero replaces the old one, because each style's ID is its address in this repository. Zotero doesn't update these automatically.
 
-**Renamed NIH style:** on 2026-11-01 "National Institutes of Health Grant Proposal" (`nih-grant-proposal.csl`) became "National Institutes of Health (grant proposals)", the name it was offered under to the official CSL repository. Its ID changed with the file name, so if you installed the old one, install this one, remove the old one, and choose the new one in Document Preferences in any document in progress.
+**Renamed NIH style:** "National Institutes of Health Grant Proposal" (`nih-grant-proposal.csl`) became "National Institutes of Health (grant proposals)", the name it was offered under to the official CSL repository. Its ID changed with the file name, so Zotero keeps both. If you installed the old one: install this one, choose it in Document Preferences in every document in progress, then remove the old one in Settings → Cite → Styles (select, then **−**).
 
 **Moving from the older copies** ("National Institute of Health Grant Proposal", "Wellcome Leap Grant Proposal", "… (1 Author)", and "Grant Proposal Compact (1 Author, No Title)" with its "Short Pages" version): they have different IDs, so Zotero keeps them alongside the new ones. Remove them in Settings → Cite → Styles (select, then **−**), and in any document in progress choose the new style in Document Preferences.
 
@@ -103,7 +103,7 @@ Check the current SF424 application guide and your funding opportunity before ea
 
 ## Where these came from
 
-The styles grew out of the official CSL repository's NLM-based styles, whose authors are credited in each file. The Clinical Nuclear Medicine style that the lab wrote earlier is in the official repository already, so Zotero users can install it from there. The NIH style may be offered there too.
+The styles grew out of the official CSL repository's NLM-based styles, whose authors are credited in each file. The Clinical Nuclear Medicine style that the lab wrote earlier is in the official repository already, so Zotero users can install it from there. The NIH style has been offered there as "National Institutes of Health (grant proposals)".
 
 ## License
 

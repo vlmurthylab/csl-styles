@@ -44,6 +44,10 @@ function render(style, fmt) {
 
 const failures = [];
 const styles = fs.readdirSync(root).filter((f) => f.endsWith(".csl")).sort();
+// The NIH style's extra rules apply to this file; fail if it goes missing,
+// so a rename can't silently skip them.
+const NIH = "national-institutes-of-health-grant-proposals.csl";
+if (!styles.includes(NIH)) failures.push(`${NIH} not found: its NIH rules weren't checked`);
 for (const f of styles) {
   const style = fs.readFileSync(path.join(root, f), "utf8");
   const text = render(style, "text");
@@ -64,7 +68,7 @@ for (const f of styles) {
     const pages = short ? "100-10" : "100–110";
     if (!line("j5").includes(pages)) failures.push(`${f}: expected pages ${pages}: ${line("j5")}`);
   }
-  if (f === "national-institutes-of-health-grant-proposals.csl") {
+  if (f === NIH) {
     // Every CSL 1.0.2 item type, each with a URL, DOI and access date: only a
     // preprint (type article) may carry its DOI, and so the only link
     const ALL_TYPES = ["article", "article-journal", "article-magazine", "article-newspaper", "bill", "book",
