@@ -1,5 +1,7 @@
-# Renders made-up references through every style and checks the NIH style
-# prints no URL, DOI or access date. See tests/check_styles.py.
+# Checks the styles on every push: schema, made-up references through
+# citeproc-py and citeproc-js (the engine Zotero uses), no links of any kind in
+# the NIH style, no stray punctuation, and SAMPLES.md up to date.
+# See tests/check_styles.py, tests/check_citeproc_js.js, scripts/make_samples.js.
 name: Check styles
 
 on:
@@ -18,5 +20,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - run: pip install citeproc-py==0.12.1
       - run: python tests/check_styles.py
+      - run: npm install --no-save citeproc@2.4.63
+      - run: node tests/check_citeproc_js.js
+      - run: node scripts/make_samples.js --check

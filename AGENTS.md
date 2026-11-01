@@ -56,10 +56,10 @@ At the start of a session, turn the hook on: `git config core.hooksPath hooks` (
 
 - **Data:** none, and none ever comes here: the repository holds citation styles, their checks and docs only. No real reference lists from a proposal in progress either, if they would reveal unpublished work. No small-cell threshold is set.
 - **Public repository:** everything committed is published, under CC BY-SA 3.0 (the styles are adapted from the official CSL repository's; keep their credits in each file's `<info>`).
-- **Stand-in data:** `tests/check_styles.py` renders made-up references (titles like "A made-up trial", example.org URLs, 10.0000 DOIs).
+- **Stand-in data:** the checks and SAMPLES.md use made-up references only (titles like "A made-up title", example.org URLs, 10.0000 DOIs, PMC0000001).
 - **Rules for the styles:**
   - `nih-grant-proposal.csl` must never print a URL, DOI or access date: NIH does not allow hyperlinks, and a printed URL or DOI can become one in Word. The check fails if it does.
   - The two compact styles stay identical apart from title, ID, summary and the `et-al-…` author rule; the check fails if they drift.
   - A style's `<id>` and self link are its raw GitHub address in this repository; don't change them (Zotero uses the ID to replace an installed style).
-- **How to run:** `pip install citeproc-py` then `python tests/check_styles.py`; GitHub runs it on every push (`check-styles.yml`). Then test a changed style in Zotero.
+- **How to run:** `python tests/check_styles.py` (citeproc-py 0.12.1), `node tests/check_citeproc_js.js` and `node scripts/make_samples.js` (citeproc 2.4.63 from npm; commit the regenerated SAMPLES.md); GitHub runs all three on every push (`check-styles.yml`). Then test a changed style in Zotero.
 - **Status:** three styles in use. The NIH style may be offered to the official CSL repository later.

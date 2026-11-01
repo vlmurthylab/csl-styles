@@ -2,12 +2,14 @@
 
 - Every style is well-formed XML and renders made-up references with
   citeproc-py (no real references or data are used).
+- Every style is valid against the CSL schema (citeproc-py's validator).
 - The NIH style never prints a URL, DOI, "doi" or an access date: NIH does not
-  allow hyperlinks, and a printed URL or DOI can become one in Word.
+  allow hyperlinks, and a printed URL or DOI can become one in Word. Checked
+  in the style's source as well as in rendered output.
 - The two compact styles differ only in their title, ID, self link, summary and
   author rule, so a fix made to one is made to both.
 
-Run:  pip install citeproc-py  &&  python tests/check_styles.py
+Run:  pip install citeproc-py==0.12.1  &&  python tests/check_styles.py
 """
 import re
 import sys
@@ -44,7 +46,7 @@ REFS = [
 
 
 def render(style_path):
-    style = CitationStylesStyle(str(style_path), validate=False)
+    style = CitationStylesStyle(str(style_path), validate=True)  # CSL schema
     bib = CitationStylesBibliography(style, CiteProcJSON(REFS), formatter.plain)
     for r in REFS:
         bib.register(Citation([CitationItem(r["id"])]))
@@ -68,6 +70,13 @@ def main():
         if len(lines) != len(REFS):
             failures.append(f"{p.name}: rendered {len(lines)} of {len(REFS)} references")
         if p.name.startswith("nih"):
+            # Static: no element may print a URL, DOI or access date, and no "cited" term
+            src = p.read_text()
+            for m in re.finditer(r'<(text|date|number)[^>]*variable="([^"]*)"', src):
+                if re.search(r"\b(URL|DOI|accessed)\b", m.group(2)):
+                    failures.append(f"{p.name}: prints {m.group(2)} ({m.group(0)})")
+            if re.search(r'term="(cited|accessed|retrieved)"', src):
+                failures.append(f"{p.name}: uses a cited/accessed/retrieved term")
             text = "\n".join(lines).lower()
             for bad in ("http", "doi", "example.org", "10.0000", "cited"):
                 if bad in text:

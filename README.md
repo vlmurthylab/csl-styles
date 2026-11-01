@@ -4,28 +4,43 @@ Citation styles (CSL) for Zotero and other reference managers, for writing grant
 
 | Style | File | What it does |
 |---|---|---|
-| National Institutes of Health Grant Proposal | [`nih-grant-proposal.csl`](nih-grant-proposal.csl) | NLM-style numbered references with **no hyperlinks**: no URLs, DOIs or access dates, which NIH doesn't allow (even internal links can trouble grants offices). All authors are listed; a PMCID is printed as plain text when the item has one; preprints read "bioRxiv [Preprint]. 2024." |
-| Compact Grant Proposal (3 Authors) | [`compact-grant-proposal.csl`](compact-grant-proposal.csl) | For grants with strict page limits and no set style (first used for Wellcome Leap): three authors, then "et al." and the last author; journal abbreviations, year, volume and pages. |
-| Compact Grant Proposal (1 Author) | [`compact-grant-proposal-1-author.csl`](compact-grant-proposal-1-author.csl) | The same, with only the first author and "et al.", for the tightest limits. |
+| National Institutes of Health Grant Proposal | [`nih-grant-proposal.csl`](nih-grant-proposal.csl) | NLM-style numbered references with **no hyperlinks**: no URLs, DOIs or access dates, since NIH doesn't allow links (even internal links can trigger a grants office). All authors are listed; a PMCID is printed as plain text when the item has one; preprints read "medRxiv [Preprint]. 2024." |
+| Compact Grant Proposal (3 Authors) | [`compact-grant-proposal.csl`](compact-grant-proposal.csl) | For grants with strict page limits and no set style (first used for Wellcome Leap): up to 3 authors in full; for 4 or more, the first two, an ellipsis and the last author ("A, B, … Z"); journal abbreviations, year, volume and pages. Preprints show the server and DOI (Zotero makes the DOI a link). |
+| Compact Grant Proposal (1 Author) | [`compact-grant-proposal-1-author.csl`](compact-grant-proposal-1-author.csl) | The same, with only the first author and "et al." whenever there are two or more. |
 
-All three put superscript citation numbers in the text, in order of first citation.
+All three put superscript citation numbers in the text, in order of first citation. **[SAMPLES.md](SAMPLES.md)** shows how each style formats every common Zotero item type.
 
 ## Installing in Zotero
 
-1. Download the `.csl` file: open it above, then **Download raw file** (the download button at the top right of the file view).
-2. In Zotero: **Settings** (Preferences on a Mac) → **Cite** → **Styles**, click **+**, and choose the file. Or double-click the file.
+1. Download the `.csl` file: open it above, then click **Download raw file** (the download button at the top right of the file view).
+2. In Zotero, open **Settings** (Edit → Settings on Windows, Zotero → Settings on a Mac) → **Cite** → **Styles**, click **+**, and choose the file.
 3. In Word: **Zotero** tab → **Document Preferences** → choose the style.
 
-To update a style, install the new file the same way; Zotero replaces the old one (each style's ID is its address in this repository). Zotero doesn't update these automatically.
+To update a style, install the new file the same way; Zotero replaces the old one, because each style's ID is its address in this repository. Zotero doesn't update these automatically.
 
-**NIH proposals:** put a PMCID in an item's **Extra** field as `PMCID: PMC1234567` and the style prints it. Check the finished bibliography for links anyway: the style prints none, but a pasted reference or Word's own autoformat could add one.
+**Moving from the older copies** ("National Institute of Health Grant Proposal", "Wellcome Leap Grant Proposal" and "… (1 Author)"): they have different IDs, so Zotero keeps them alongside the new ones. Remove them in Settings → Cite → Styles (select, then **−**), and in any document in progress choose the new style in Document Preferences.
+
+**NIH proposals:** a PMCID comes from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it). Check the finished bibliography for links anyway: the style prints none, but a reference pasted by hand, or Word's own autoformatting, could add one.
 
 ## Changing a style
 
 - The two compact styles are identical apart from their title, ID, summary and the author rule (`et-al-...`). Make any other change to both.
-- Run the checks before pushing: `pip install citeproc-py` then `python tests/check_styles.py`. GitHub runs them on every push too (`.github/workflows/check-styles.yml`). They render made-up references through each style and fail if the NIH output ever contains a URL, DOI or access date, or if the compact styles drift apart.
+- Run the checks before pushing (GitHub runs them on every push, `.github/workflows/check-styles.yml`):
+  - `pip install citeproc-py==0.12.1` then `python tests/check_styles.py`: schema, made-up references, no URL, DOI or access date in the NIH style (in its source and its output), and the compact styles kept in step;
+  - `npm install citeproc@2.4.63` then `node tests/check_citeproc_js.js`: the same references through Zotero's own engine, with links switched on as in Zotero, plus stray punctuation;
+  - `node scripts/make_samples.js` to rewrite SAMPLES.md, then commit it (the check fails if it's out of date).
 - Test a changed style in Zotero with a few real references before using it in a proposal.
 - Update `<updated>` in the style's `<info>`.
+
+## Layout
+
+| Path | What it holds |
+|---|---|
+| `*.csl` | the styles |
+| `SAMPLES.md` | generated samples of every style |
+| `tests/` | the checks, and the CSL project's US English locale they use |
+| `scripts/make_samples.js` | writes SAMPLES.md |
+| `hooks/`, `tools/`, `.github/`, `data/` | the lab's shared safeguards (see below); `data/` holds only its README, and never data |
 
 ## Where these came from
 
@@ -33,7 +48,7 @@ The styles grew out of the official CSL repository's NLM-based styles, whose aut
 
 ## License
 
-[CC BY-SA 3.0](LICENSE), as required for styles derived from the official CSL repository's.
+The styles are [CC BY-SA 3.0](LICENSE), as required for styles derived from the official CSL repository's; each links to the NLM style it's based on.
 
 ## Lab safeguards
 
