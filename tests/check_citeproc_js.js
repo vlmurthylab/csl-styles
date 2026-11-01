@@ -1,7 +1,8 @@
 // Renders made-up references through every style with citeproc-js, the engine
 // Zotero uses, with links switched on as Zotero does, and checks:
 //  - every style renders every item type;
-//  - the NIH style's output has no link, URL, DOI or access date at all;
+//  - the NIH style prints no URL or access date for any CSL item type, and a
+//    DOI (the only link) for preprints alone;
 //  - no entry has a stray semicolon (";." or ending in ";") or a doubled edition;
 //  - each compact style does what its name says: no-title styles print no
 //    article title (but keep a dataset's), short-pages styles print 100-10;
@@ -15,7 +16,7 @@ const path = require("path");
 const root = path.join(__dirname, "..");
 const locale = fs.readFileSync(path.join(__dirname, "locales-en-US.xml"), "utf8");
 const A = (n) => Array.from({ length: n }, (_, i) => ({ family: "Auth" + String.fromCharCode(65 + i), given: "Q R" }));
-const web = { URL: "https://example.org/x", DOI: "10.0000/made.up", accessed: { "date-parts": [[2024, 1, 5]] } };
+const web = { URL: "https://example.org/x", DOI: "10.0000/made.up", accessed: { "date-parts": [[1999, 1, 5]] } };
 const items = [
   { id: "j5", type: "article-journal", title: "Five-author trial", "container-title": "Journal of Made Up", "container-title-short": "J Made Up", volume: "12", issue: "3", page: "100-110", issued: { "date-parts": [[2021, 5]] }, author: A(5), PMCID: "PMC0000001", ...web },
   { id: "aop", type: "article-journal", title: "Ahead of print article", "container-title": "Journal of Made Up", issued: { "date-parts": [[2025]] }, author: A(2), ...web },
@@ -64,19 +65,35 @@ for (const f of styles) {
     if (!line("j5").includes(pages)) failures.push(`${f}: expected pages ${pages}: ${line("j5")}`);
   }
   if (f.startsWith("nih")) {
-    // Only preprints may carry a DOI (NIH asks for it, NOT-OD-17-050), and so the
-    // only link; no URL or access date anywhere
-    const htmlLines = render(style, "html");
-    items.forEach((it, k) => {
-      const h = htmlLines[k], preprint = it.type === "article";
-      const checks = [["a URL", /example\.org/i], ["an access date", /cited|accessed|2024 Jan 5/i]];
-      if (!preprint) checks.push(["a link", /<a /i], ["a DOI", /doi|10\.0000/i]);
-      for (const [what, re] of checks) {
-        if (re.test(h)) failures.push(`${f}: ${it.id} contains ${what} (NIH allows no hyperlinks): ${text[k]}`);
-      }
-      if (preprint && it.DOI && !text[k].includes("doi: " + it.DOI)) failures.push(`${f}: preprint lacks its DOI: ${text[k]}`);
-      if (preprint && /<a /i.test(h) && !/href="https:\/\/doi\.org\//.test(h)) failures.push(`${f}: preprint links somewhere other than doi.org: ${text[k]}`);
-    });
+    // Every CSL 1.0.2 item type, each with a URL, DOI and access date: only a
+    // preprint (type article) may carry its DOI, and so the only link
+    const ALL_TYPES = ["article", "article-journal", "article-magazine", "article-newspaper", "bill", "book",
+      "broadcast", "chapter", "classic", "collection", "dataset", "document", "entry", "entry-dictionary",
+      "entry-encyclopedia", "event", "figure", "graphic", "hearing", "interview", "legal_case", "legislation",
+      "manuscript", "map", "motion_picture", "musical_score", "pamphlet", "paper-conference", "patent",
+      "performance", "periodical", "personal_communication", "post", "post-weblog", "regulation", "report",
+      "review", "review-book", "software", "song", "speech", "standard", "thesis", "treaty", "webpage"];
+    const typed = ALL_TYPES.map((t) => ({ id: "t-" + t, type: t, title: "A made-up " + t, "container-title": "Made Up Container",
+      publisher: "Made Up Pub", number: "N-1", issued: { "date-parts": [[2022, 3, 4]] }, author: A(1), ...web }));
+    const tById = Object.fromEntries(typed.map((i) => [i.id, i]));
+    const eng = new CSL.Engine({ retrieveLocale: () => locale, retrieveItem: (id) => tById[id] }, style);
+    eng.opt.development_extensions.wrap_url_and_doi = true;
+    for (const fmt of ["html", "text"]) {
+      eng.setOutputFormat(fmt);
+      eng.updateItems(typed.map((i) => i.id));
+      const out = eng.makeBibliography()[1].map((l) => l.trim());
+      if (out.length !== typed.length) failures.push(`${f}: rendered ${out.length} of ${typed.length} item types`);
+      typed.forEach((it, k) => {
+        const h = out[k] || "", preprint = it.type === "article";
+        const checks = [["a URL", /example\.org/i], ["an access date", /cited|accessed|1999/i]];
+        if (!preprint) checks.push(["a link", /<a /i], ["a DOI", /doi|10\.0000/i]);
+        for (const [what, re] of checks) {
+          if (re.test(h)) failures.push(`${f}: ${it.type} (${fmt}) contains ${what} (NIH allows no hyperlinks): ${h}`);
+        }
+        if (preprint && fmt === "text" && !h.includes("doi: " + it.DOI)) failures.push(`${f}: preprint lacks its DOI: ${h}`);
+        if (preprint && /<a /i.test(h) && !/href="https:\/\/doi\.org\//.test(h)) failures.push(`${f}: preprint links somewhere other than doi.org: ${h}`);
+      });
+    }
   }
 }
 if (failures.length) {

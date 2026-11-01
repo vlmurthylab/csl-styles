@@ -24,17 +24,18 @@ To update a style, install the new file the same way; Zotero replaces the old on
 
 ## NIH applications
 
-**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM / Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in four ways:
+**Why not the standard NLM style?** NIH suggests NLM, and this style is based on Zotero's "NLM / Vancouver" (`nlm-citation-sequence`). Used for an NIH application, that style falls short in three ways:
 
 | Standard NLM style | NIH's rule | This style |
 |---|---|---|
-| Prints the DOI of most journal articles, and "Available from: URL [cited date]" for web pages; Zotero turns each DOI and URL into a live link | Hyperlinks and URLs only where a funding opportunity or form instructions allow them (SF424 application guide, Format Attachments); grants offices flag links, even ones inside the document | No URL or access date anywhere; a DOI only for preprints |
+| Prints the DOI of every item that has one, and for everything but journal articles "[cited date]. Available from: URL"; Zotero turns each DOI and URL into a live link | Hyperlinks and URLs only where a funding opportunity or form instructions allow them (SF424 application guide, Format Attachments); grants offices flag links, even ones inside the document | No URL or access date anywhere; a DOI only for preprints |
 | Shortens author lists to six names and "et al." | All authors, in the order on the paper | Every author |
-| No PMCID | The applicant's own NIH-supported papers are cited with their PMCID at the end ([NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm), Grants Policy Statement 8.2.2) | PMCID as plain text, from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it) |
-| Preprints aren't marked | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI |
+| Preprints aren't marked ("medRxiv; 2024. doi:…") | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI (with no DOI, the Archive ID, such as an arXiv number). NIH's own example gives the DOI as a doi.org address with a [cited] date; this style prints `doi: 10…` instead, so there is no URL |
 
-**Before submitting: remove the preprint links.** Zotero turns any DOI a style prints into a live link, in Word and in Google Docs alike, and a style can't stop it. So each preprint's DOI arrives as a link:
-- **Word:** in a final copy, select the bibliography and press Ctrl+Shift+F9 (⌘+Shift+F9 on a Mac). That makes the links and fields in it plain text (and disconnects them from Zotero, hence the copy).
+Plain NLM does print the PMCID ("PubMed Central PMCID: …"), which the [NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm) (Grants Policy Statement 8.2.2) requires, at the end of the reference, for your own NIH-supported papers. This style keeps it as plain `PMCID: PMC…`, taken from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it).
+
+**Before submitting: remove the preprint links.** Zotero turns any DOI a style prints into a live link, in Word and in Google Docs alike, and a style can't stop it. So each preprint's DOI arrives as a link. Do this last, in a final copy: any Zotero refresh puts the links back.
+- **Word:** select the bibliography and press Ctrl+Shift+F9 (on a Mac, ⌘+Shift+F9, adding Fn on a laptop keyboard). That makes the links and fields in it plain text, and disconnects them from Zotero, hence the copy. If a DOI is still blue and underlined, select it and remove the colour and underline, so it doesn't look like a link.
 - **Google Docs:** click each preprint DOI and choose **Remove link**.
 
 Then check the whole bibliography for links: the style prints none apart from those, but a reference pasted by hand, or Word's autoformatting, can bring one in.

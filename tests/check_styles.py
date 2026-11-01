@@ -16,6 +16,7 @@ Run:  pip install citeproc-py==0.12.1  &&  python tests/check_styles.py
 import re
 import sys
 import xml.dom.minidom
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from citeproc import (Citation, CitationItem, CitationStylesBibliography,
@@ -32,7 +33,7 @@ REFS = [
      "volume": "12", "issue": "3", "page": "100-110", "issued": {"date-parts": [[2021, 5]]},
      "author": [{"family": f, "given": "A"} for f in ["Alpha", "Beta", "Gamma", "Delta", "Epsilon"]],
      "URL": "https://example.org/article", "DOI": "10.0000/made.up.1",
-     "accessed": {"date-parts": [[2024, 1, 5]]}, "PMCID": "PMC0000001"},
+     "accessed": {"date-parts": [[1999, 1, 5]]}, "PMCID": "PMC0000001"},
     {"id": "preprint", "type": "article", "title": "A made-up preprint", "publisher": "bioRxiv",
      "issued": {"date-parts": [[2024]]}, "author": [{"family": "Zeta", "given": "Z"}],
      "DOI": "10.0000/made.up.2", "URL": "https://example.org/preprint"},
@@ -72,23 +73,35 @@ def main():
         if len(lines) != len(REFS):
             failures.append(f"{p.name}: rendered {len(lines)} of {len(REFS)} references")
         if p.name.startswith("nih"):
-            # Static: no element may print a URL or access date, no "cited" term,
-            # and the only DOI is the one in the preprint branch
-            src = p.read_text()
-            start = src.index('<if type="article">')
-            preprint = src[start:src.index("</if>", src.index('<text value="[Preprint]. "/>', start))]
-            for m in re.finditer(r'<(text|date|number)[^>]*variable="([^"]*)"', src):
-                if re.search(r"\b(URL|accessed)\b", m.group(2)):
-                    failures.append(f"{p.name}: prints {m.group(2)} ({m.group(0)})")
-                elif "DOI" in m.group(2).split() and m.group(0) not in preprint:
-                    failures.append(f"{p.name}: prints a DOI outside the preprint branch ({m.group(0)})")
-            if src.count('variable="DOI"') != 1:
-                failures.append(f"{p.name}: expected exactly one DOI element (preprints)")
-            if re.search(r'term="(cited|accessed|retrieved)"', src):
-                failures.append(f"{p.name}: uses a cited/accessed/retrieved term")
+            # Static, read with an XML parser so quoting and spacing can't hide
+            # anything: no element may print a URL or access date, no "cited"
+            # term, and the only DOI is inside the preprint branch
+            ns = "{http://purl.org/net/xbiblio/csl}"
+            root = ET.parse(str(p)).getroot()
+            parent = {c: q for q in root.iter() for c in q}
+            def in_preprint_branch(el):
+                while el in parent:
+                    el = parent[el]
+                    if el.tag == ns + "if" and el.get("type") == "article" and len(el.attrib) == 1:
+                        return True
+                return False
+            dois = 0
+            for el in root.iter():
+                # conditions (<if variable="DOI">) test a variable; they don't print it
+                variables = [] if el.tag in (ns + "if", ns + "else-if") else (el.get("variable") or "").split()
+                if "URL" in variables or "accessed" in variables:
+                    failures.append(f"{p.name}: prints {el.get('variable')} (<{el.tag.replace(ns, '')}>)")
+                if "DOI" in variables:
+                    dois += 1
+                    if not in_preprint_branch(el):
+                        failures.append(f"{p.name}: prints a DOI outside the preprint branch")
+                if el.get("term") in ("cited", "accessed", "retrieved"):
+                    failures.append(f"{p.name}: uses the {el.get('term')} term")
+            if dois != 1:
+                failures.append(f"{p.name}: expected exactly one DOI element (preprints), found {dois}")
             for r, line in zip(REFS, lines):
                 text = line.lower()
-                for bad in ("http", "example.org", "cited"):
+                for bad in ("http", "example.org", "cited", "1999"):
                     if bad in text:
                         failures.append(f"{p.name}: output contains '{bad}' (NIH allows no hyperlinks): {line}")
                 has_doi = "doi" in text or "10.0000" in text

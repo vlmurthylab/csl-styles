@@ -3,30 +3,33 @@
   <!--
     Why not the standard NLM style (nlm-citation-sequence), which NIH suggests
     and this style is based on? Used in Zotero for an NIH application, NLM:
-    - prints the DOI of most journal articles, and "Available from: URL" with
-      "[cited date]" for web pages and other items. Zotero turns every printed
-      DOI and URL into a live link. NIH allows hyperlinks and URLs only where a
-      funding opportunity or form instructions say so (SF424 application
-      guide, "Format Attachments"), and grants offices flag links, even ones
-      inside the document.
-    - shortens author lists to six names and "et al." NIH's instructions have
-      asked for all authors, in the order on the paper.
-    - doesn't print a PMCID. The NIH Public Access Policy (Grants Policy
-      Statement 8.2.2) requires the PMCID, at the end of the reference, when
-      citing the applicant's own NIH-supported papers.
-    - doesn't mark preprints. NIH asks for preprints to be cited with
-      "[Preprint]", a date for the version and the DOI (NOT-OD-17-050).
+    - prints the DOI of every item that has one, and for everything but
+      journal articles "[cited date]. Available from: URL" too. Zotero turns
+      every printed DOI and URL into a live link. NIH allows hyperlinks and
+      URLs only where a funding opportunity or form instructions say so
+      (SF424 application guide, "Format Attachments"), and grants offices flag
+      links, even ones inside the document.
+    - shortens author lists of seven or more to six names and "et al." NIH's
+      instructions have asked for all authors, in the order on the paper.
+    - doesn't mark preprints ("medRxiv; 2024. doi:..."). NIH asks for
+      preprints to be cited with "[Preprint]", a date for the version and the
+      DOI (NOT-OD-17-050).
+    (NLM does print the PMCID, as "PubMed Central PMCID", which the NIH Public
+    Access Policy requires for the applicant's NIH-supported papers; this
+    style keeps it, as plain "PMCID: PMC...".)
 
     So this style prints no URL or access date anywhere, lists every author,
     prints the PMCID from the item's Extra field, and gives preprints the
-    server, "[Preprint]", the posting date and the DOI.
+    server, "[Preprint]", the posting date and the DOI (or, with no DOI, the
+    Archive ID, such as an arXiv number). NIH's own example cites the DOI as a
+    doi.org web address with a [cited] date; this style prints it as
+    "doi: 10..." instead, so there is no URL.
 
     WARNING: Zotero makes that preprint DOI a live link, in Word and in Google
-    Docs alike; a style cannot stop it. Before submitting, remove those links:
-    in Word, select the bibliography in a final copy and press Ctrl+Shift+F9
-    (Cmd+Shift+F9 on a Mac); in Google Docs, click each preprint DOI and
-    choose Remove link. Then check the whole bibliography for links: a
-    reference pasted by hand can bring one in.
+    Docs alike; a style cannot stop it. Remove those links last, in a final
+    copy, since a Zotero refresh puts them back (steps in the README). Then
+    check the whole bibliography for links: a reference pasted by hand can
+    bring one in.
 
     A paper within three months of publication may be cited with its NIHMS ID
     instead of a PMCID; Zotero has no field for it, so add it by hand (see the
@@ -202,13 +205,23 @@
                   <text variable="archive" prefix=" " suffix=" "/>
                 </else-if>
               </choose>
-              <text value="[Preprint]. "/>
-              <date variable="issued" delimiter=" " suffix=".">
-                <date-part name="year"/>
-                <date-part name="month" form="short" strip-periods="true"/>
-                <date-part name="day"/>
-              </date>
-              <text variable="DOI" prefix=" doi: " suffix="."/>
+              <text value="[Preprint]."/>
+              <group prefix=" " delimiter=" ">
+                <date variable="issued" delimiter=" " suffix=".">
+                  <date-part name="year"/>
+                  <date-part name="month" form="short" strip-periods="true"/>
+                  <date-part name="day"/>
+                </date>
+                <choose>
+                  <if variable="DOI">
+                    <text variable="DOI" prefix="doi: " suffix="."/>
+                  </if>
+                  <else>
+                    <!-- No DOI: the Archive ID (an arXiv number), as plain text -->
+                    <text variable="number" suffix="."/>
+                  </else>
+                </choose>
+              </group>
             </if>
             <else>
               <text macro="journal-title"/>
