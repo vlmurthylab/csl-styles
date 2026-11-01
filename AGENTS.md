@@ -1,6 +1,6 @@
 # AGENTS.md — csl-styles
 
-The lab's citation styles (CSL) for grant writing: an NIH proposal style with no hyperlinks, and two compact styles for page-limited grants. Public.
+The lab's citation styles (CSL): an NIH grant style with no hyperlinks, and a family of four compact styles for anything with a strict page limit. Public.
 
 These rules apply to every AI coding assistant working in this repo: Claude Code (which loads this file through `CLAUDE.md`), Codex and any other. Only the **This project** section at the end is edited per project; the rest is lab policy.
 
@@ -59,7 +59,7 @@ At the start of a session, turn the hook on: `git config core.hooksPath hooks` (
 - **Stand-in data:** the checks and SAMPLES.md use made-up references only (titles like "A made-up title", example.org URLs, 10.0000 DOIs, PMC0000001).
 - **Rules for the styles:**
   - `nih-grant-proposal.csl` must never print a URL, DOI or access date: NIH does not allow hyperlinks, and a printed URL or DOI can become one in Word. The check fails if it does.
-  - The two compact styles stay identical apart from title, ID, summary and the `et-al-…` author rule; the check fails if they drift.
+  - The four compact styles stay identical apart from title, ID, summary, the `et-al-…` author rule, whether they print the title, and the page-range format; the check fails if they drift. New compact styles are named `compact-<authors>[-no-title][-short-pages].csl`, titled "Compact (…)".
   - A style's `<id>` and self link are its raw GitHub address in this repository; don't change them (Zotero uses the ID to replace an installed style).
 - **How to run:** `python tests/check_styles.py` (citeproc-py 0.12.1), `node tests/check_citeproc_js.js` and `node scripts/make_samples.js` (citeproc 2.4.63 from npm; commit the regenerated SAMPLES.md); GitHub runs all three on every push (`check-styles.yml`). Then test a changed style in Zotero.
-- **Status:** three styles in use. The NIH style may be offered to the official CSL repository later.
+- **Status:** five styles in use. The NIH style may be offered to the official CSL repository later.

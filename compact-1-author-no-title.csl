@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" initialize-with-hyphen="false" default-locale="en-US">
   <info>
-    <title>Compact Grant Proposal (3 Authors)</title>
-    <title-short>Compact Grant</title-short>
-    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-grant-proposal.csl</id>
-    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-grant-proposal.csl" rel="self"/>
+    <title>Compact (1 Author, No Title)</title>
+    <title-short>Compact</title-short>
+    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-1-author-no-title.csl</id>
+    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-1-author-no-title.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/nlm-citation-sequence" rel="template"/>
     <author>
       <name>Venkatesh Murthy</name>
@@ -20,7 +20,7 @@
     </contributor>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>Tight numbered references for grants with strict page limits and no set style (first used for Wellcome Leap): up to 3 authors in full; for 4 or more, the first two, an ellipsis and the last author ("A, B, … Z"); journal abbreviations, year, volume and pages.</summary>
+    <summary>The tightest numbered references: the first author, then et al.; no article titles; journal abbreviations, year, volume and pages. For strict page limits with no set style (first used for Wellcome Leap grants).</summary>
     <updated>2026-11-01T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
@@ -33,7 +33,7 @@
   </locale>
   <macro name="author">
     <names variable="author">
-      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always" delimiter-precedes-et-al="always" et-al-min="4" et-al-use-first="3" et-al-use-last="true"/>
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always" delimiter-precedes-et-al="always" et-al-min="2" et-al-use-first="1"/>
       <et-al term="et-al" font-style="italic"/>
       <label form="long" prefix=", "/>
       <substitute>
@@ -81,15 +81,33 @@
     </choose>
   </macro>
   <macro name="title">
-    <text variable="title"/>
+    <group delimiter=" ">
+      <group delimiter=". ">
+        <text variable="title"/>
+        <text macro="edition-of-book"/>
+      </group>
+      <text macro="thesis-type"/>
+    </group>
+  </macro>
+  <!-- What the no-title styles print in place of the title: "2nd ed." for a
+       book, "[PhD thesis]" for a thesis -->
+  <macro name="title-extras">
+    <group delimiter=" ">
+      <text macro="edition-of-book"/>
+      <text macro="thesis-type"/>
+    </group>
+  </macro>
+  <macro name="edition-of-book">
     <choose>
       <if type="article-journal article-magazine chapter paper-conference article-newspaper" match="none">
-        <text macro="edition" prefix=". "/>
+        <text macro="edition"/>
       </if>
     </choose>
+  </macro>
+  <macro name="thesis-type">
     <choose>
       <if type="thesis">
-        <text variable="genre" prefix=" [" suffix="]"/>
+        <text variable="genre" prefix="[" suffix="]"/>
       </if>
     </choose>
   </macro>
@@ -126,7 +144,7 @@
       <text variable="citation-number" suffix=". "/>
       <group delimiter=". " suffix=". ">
         <text macro="author"/>
-        <text macro="title"/>
+        <text macro="title-extras"/>
       </group>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song thesis" match="any">

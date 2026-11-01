@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" initialize-with-hyphen="false" default-locale="en-US">
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" initialize-with-hyphen="false" page-range-format="minimal-two" default-locale="en-US">
   <info>
-    <title>Compact Grant Proposal (1 Author)</title>
-    <title-short>Compact Grant</title-short>
-    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-grant-proposal-1-author.csl</id>
-    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-grant-proposal-1-author.csl" rel="self"/>
+    <title>Compact (1 Author, No Title, Short Pages)</title>
+    <title-short>Compact</title-short>
+    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-1-author-no-title-short-pages.csl</id>
+    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-1-author-no-title-short-pages.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/nlm-citation-sequence" rel="template"/>
     <author>
       <name>Venkatesh Murthy</name>
@@ -20,7 +20,7 @@
     </contributor>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>Tight numbered references for grants with strict page limits and no set style (first used for Wellcome Leap): the first author, then et al.; journal abbreviations, year, volume and pages.</summary>
+    <summary>As Compact (1 Author, No Title), with shortened page ranges (100-10): the first author, then et al.; no article titles; journal abbreviations, year, volume and pages. For strict page limits with no set style (first used for Wellcome Leap grants).</summary>
     <updated>2026-11-01T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
@@ -29,6 +29,7 @@
       <term name="presented at">presented at</term>
       <term name="section" form="short">sect.</term>
       <term name="et-al">et al.</term>
+      <term name="page-range-delimiter">-</term>
     </terms>
   </locale>
   <macro name="author">
@@ -81,15 +82,33 @@
     </choose>
   </macro>
   <macro name="title">
-    <text variable="title"/>
+    <group delimiter=" ">
+      <group delimiter=". ">
+        <text variable="title"/>
+        <text macro="edition-of-book"/>
+      </group>
+      <text macro="thesis-type"/>
+    </group>
+  </macro>
+  <!-- What the no-title styles print in place of the title: "2nd ed." for a
+       book, "[PhD thesis]" for a thesis -->
+  <macro name="title-extras">
+    <group delimiter=" ">
+      <text macro="edition-of-book"/>
+      <text macro="thesis-type"/>
+    </group>
+  </macro>
+  <macro name="edition-of-book">
     <choose>
       <if type="article-journal article-magazine chapter paper-conference article-newspaper" match="none">
-        <text macro="edition" prefix=". "/>
+        <text macro="edition"/>
       </if>
     </choose>
+  </macro>
+  <macro name="thesis-type">
     <choose>
       <if type="thesis">
-        <text variable="genre" prefix=" [" suffix="]"/>
+        <text variable="genre" prefix="[" suffix="]"/>
       </if>
     </choose>
   </macro>
@@ -126,7 +145,7 @@
       <text variable="citation-number" suffix=". "/>
       <group delimiter=". " suffix=". ">
         <text macro="author"/>
-        <text macro="title"/>
+        <text macro="title-extras"/>
       </group>
       <choose>
         <if type="bill book graphic legal_case legislation motion_picture report song thesis" match="any">

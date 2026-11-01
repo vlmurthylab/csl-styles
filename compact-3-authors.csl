@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" initialize-with-hyphen="false" default-locale="en-US">
+  <info>
+    <title>Compact (3 Authors)</title>
+    <title-short>Compact</title-short>
+    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-3-authors.csl</id>
+    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/compact-3-authors.csl" rel="self"/>
+    <link href="http://www.zotero.org/styles/nlm-citation-sequence" rel="template"/>
+    <author>
+      <name>Venkatesh Murthy</name>
+    </author>
+    <contributor>
+      <name>Michael Berkowitz</name>
+    </contributor>
+    <contributor>
+      <name>Sebastian Karcher</name>
+    </contributor>
+    <contributor>
+      <name>Matt Tracy</name>
+    </contributor>
+    <category citation-format="numeric"/>
+    <category field="medicine"/>
+    <summary>Tight numbered references: up to 3 authors in full; for 4 or more, the first two, an ellipsis and the last author ("A, B, … Z"); article titles; journal abbreviations, year, volume and pages. For strict page limits with no set style (first used for Wellcome Leap grants).</summary>
+    <updated>2026-11-01T12:00:00+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <locale xml:lang="en">
+    <terms>
+      <term name="presented at">presented at</term>
+      <term name="section" form="short">sect.</term>
+      <term name="et-al">et al.</term>
+    </terms>
+  </locale>
+  <macro name="author">
+    <names variable="author">
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always" delimiter-precedes-et-al="always" et-al-min="4" et-al-use-first="3" et-al-use-last="true"/>
+      <et-al term="et-al" font-style="italic"/>
+      <label form="long" prefix=", "/>
+      <substitute>
+        <names variable="editor"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="editor">
+    <group delimiter=": ">
+      <choose>
+        <if type="chapter paper-conference" match="any">
+          <text term="in" text-case="capitalize-first"/>
+        </if>
+      </choose>
+      <names variable="editor" suffix=".">
+        <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+        <label form="long" prefix=", "/>
+      </names>
+    </group>
+  </macro>
+  <macro name="publisher">
+    <group delimiter=": " suffix=";">
+      <choose>
+        <if type="thesis">
+          <text variable="publisher-place" prefix="[" suffix="]"/>
+        </if>
+        <else-if type="speech"/>
+        <else>
+          <text variable="publisher-place"/>
+        </else>
+      </choose>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+  <macro name="journal-title">
+    <choose>
+      <if type="article-journal article-magazine" match="any">
+        <group suffix=". ">
+          <text variable="container-title" form="short" font-style="italic" strip-periods="true"/>
+        </group>
+      </if>
+      <else>
+        <text variable="container-title" suffix=". " form="short" font-style="italic"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="title">
+    <group delimiter=" ">
+      <group delimiter=". ">
+        <text variable="title"/>
+        <text macro="edition-of-book"/>
+      </group>
+      <text macro="thesis-type"/>
+    </group>
+  </macro>
+  <!-- What the no-title styles print in place of the title: "2nd ed." for a
+       book, "[PhD thesis]" for a thesis -->
+  <macro name="title-extras">
+    <group delimiter=" ">
+      <text macro="edition-of-book"/>
+      <text macro="thesis-type"/>
+    </group>
+  </macro>
+  <macro name="edition-of-book">
+    <choose>
+      <if type="article-journal article-magazine chapter paper-conference article-newspaper" match="none">
+        <text macro="edition"/>
+      </if>
+    </choose>
+  </macro>
+  <macro name="thesis-type">
+    <choose>
+      <if type="thesis">
+        <text variable="genre" prefix="[" suffix="]"/>
+      </if>
+    </choose>
+  </macro>
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="ordinal"/>
+          <text term="edition" form="short"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition" suffix="."/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="report-details">
+    <choose>
+      <if type="report">
+        <text variable="number" prefix="Report No.: "/>
+      </if>
+    </choose>
+  </macro>
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout vertical-align="sup" delimiter=",">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+  <bibliography entry-spacing="0">
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+      <group delimiter=". " suffix=". ">
+        <text macro="author"/>
+        <text macro="title"/>
+      </group>
+      <choose>
+        <if type="bill book graphic legal_case legislation motion_picture report song thesis" match="any">
+          <group prefix=" " delimiter=" ">
+            <text macro="publisher"/>
+            <date variable="issued" suffix=".">
+              <date-part name="year"/>
+            </date>
+          </group>
+          <text macro="report-details" prefix=" " suffix="."/>
+        </if>
+        <else-if type="chapter paper-conference" match="any">
+          <!-- NLM: In: Editor A, editor. Book title. Place: Publisher; Year. p. 1-20. -->
+          <group prefix=" " delimiter=" " suffix=".">
+            <text macro="editor"/>
+            <text variable="container-title"/>
+          </group>
+          <group prefix=" " delimiter=" ">
+            <text macro="publisher"/>
+            <date variable="issued" suffix=".">
+              <date-part name="year"/>
+            </date>
+          </group>
+          <text variable="page" prefix=" p. " suffix="."/>
+        </else-if>
+        <else>
+          <text macro="journal-title"/>
+          <!-- "2021;12:100-110." or "2024; medRxiv doi: ..." for preprints (no stray semicolon) -->
+          <group delimiter=";" suffix=".">
+            <date variable="issued">
+              <date-part name="year"/>
+            </date>
+            <choose>
+              <if type="article" match="any">
+                <group prefix=" " delimiter=" ">
+                  <text variable="publisher"/>
+                  <text variable="archive"/>
+                  <text variable="DOI" prefix="doi: "/>
+                </group>
+              </if>
+              <else>
+                <group>
+                  <text variable="volume"/>
+                  <text variable="page" prefix=":"/>
+                </group>
+              </else>
+            </choose>
+          </group>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>

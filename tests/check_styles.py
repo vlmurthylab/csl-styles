@@ -6,8 +6,9 @@
 - The NIH style never prints a URL, DOI, "doi" or an access date: NIH does not
   allow hyperlinks, and a printed URL or DOI can become one in Word. Checked
   in the style's source as well as in rendered output.
-- The two compact styles differ only in their title, ID, self link, summary and
-  author rule, so a fix made to one is made to both.
+- The compact styles differ only in their title, ID, self link, summary,
+  author rule, whether they print the article title, and page-range format, so
+  a fix made to one is made to all.
 
 Run:  pip install citeproc-py==0.12.1  &&  python tests/check_styles.py
 """
@@ -82,14 +83,22 @@ def main():
                 if bad in text:
                     failures.append(f"{p.name}: output contains '{bad}' (NIH allows no hyperlinks)")
 
-    compact = {p.name: p.read_text() for p in STYLES if p.name.startswith("compact-grant-proposal")}
-    if len(compact) == 2:
-        def strip(s):
-            s = re.sub(r"<title>.*?</title>|<id>.*?</id>|<link [^>]*rel=\"self\"/>|<summary>.*?</summary>", "", s)
-            return re.sub(r'et-al-[a-z-]+="[^"]*"', "", s)
-        a, b = (strip(s) for s in compact.values())
-        if a.split() != b.split():
-            failures.append("compact styles differ beyond title, ID, summary and author rule; keep them in step")
+    compact = {p.name: p.read_text() for p in STYLES if p.name.startswith("compact-")}
+    if len(compact) < 4:
+        failures.append(f"expected 4 compact styles, found {sorted(compact)}")
+
+    def strip(s):
+        """Remove what the compact styles may differ in."""
+        s = re.sub(r"<title>.*?</title>|<id>.*?</id>|<link [^>]*rel=\"self\"/>|<summary>.*?</summary>", "", s)
+        s = re.sub(r'et-al-[a-z-]+="[^"]*"|page-range-format="[^"]*"', "", s)
+        s = s.replace('<term name="page-range-delimiter">-</term>', "")
+        return s.replace('<text macro="title-extras"/>', '<text macro="title"/>')
+    stripped = {name: strip(s).split() for name, s in compact.items()}
+    first = next(iter(stripped), None)
+    for name, words in stripped.items():
+        if words != stripped[first]:
+            failures.append(f"{name} differs from {first} beyond title, ID, summary, author rule, "
+                            "article title and page ranges; keep the compact styles in step")
 
     if failures:
         print("\nFAILED:\n  " + "\n  ".join(failures))
