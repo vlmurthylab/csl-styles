@@ -26,8 +26,8 @@
     "doi: 10..." instead, so there is no URL.
 
     WARNING: links. Whether that DOI is a link depends on how the references
-    get into the document, not on the style (tested with Zotero 10.0.7, see
-    docs/zotero-link-test-plan.md; steps in the README):
+    get into the document, not on the style (tested with this style and NLM
+    in Zotero 10.0.7, see docs/zotero-link-test-plan.md; steps in the README):
     - Word, inserted with the Zotero plugin: no links, the DOI is plain text
       (tested on Windows; Mac not tested).
     - Google Docs, inserted with the plugin: every citation and the whole

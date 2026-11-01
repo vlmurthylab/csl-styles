@@ -14,7 +14,16 @@ Notes:
 - All three predictions held, for Quick Copy; Create Bibliography wasn't tested (Zotero's code treats it the same way). Word's auto-format wasn't tested: nothing was typed in the bibliographies.
 - Google Docs' `.docx` download keeps the zotero.org links as ordinary hyperlinks but drops Zotero's fields, so Zotero can't update that copy. Its Web page download routes every link through `google.com/url?q=…`.
 - In a first try, Quick Copy was set to another style that prints no DOIs, so only URLs were pasted; it was redone with NLM.
-- Not tested directly: this repository's `nih-grant-proposal.csl` (the preprint was saved as a Journal Article, so the NIH style wouldn't have printed its DOI), a Mac, and LibreOffice. The links are made by Zotero's plugins and Quick Copy, not by the style, so the results should carry over; the README asks for a check of the final PDF either way.
+- Not tested: a Mac and LibreOffice. The links are made by Zotero's plugins and Quick Copy, not by the style, so the results should carry over; the README asks for a check of the final PDF either way.
+
+**Then with this repository's `nih-grant-proposal.csl`** (same setup, with the preprint's item type changed to Preprint, its Repository set to medRxiv and its Date to the posting date of the version cited; Part B pasted from Quick Copy set to the NIH style):
+
+| | Part A: inserted with the plugin | Part B: pasted from Quick Copy |
+|---|---|---|
+| **Word** (`.docx` and PDF) | **No links.** The preprint prints as "medRxiv [Preprint]. [posting date]. doi: 10.…" in plain text; the journal article and web page print no DOI or URL. | **One link:** the preprint DOI, to doi.org. Nothing else, since the style prints no other DOI or URL. |
+| **Google Docs** (PDF) | Every citation and the whole bibliography link to zotero.org, as with NLM. No doi.org links. | The preprint DOI links to doi.org. |
+| **Google Docs copy after Unlink Citations** | **No links.** | The preprint DOI link stays. |
+
 
 **What this means for NIH applications** (now in the README and the warning in `nih-grant-proposal.csl`): in Word, insert references with the plugin and nothing needs removing; in Google Docs, run Unlink Citations in a final copy before exporting; never paste a bibliography from Quick Copy or Create Bibliography. The test plan follows, as it was run.
 
