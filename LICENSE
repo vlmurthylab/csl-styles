@@ -1,0 +1,12 @@
+The citation styles in this repository (*.csl) are licensed under the Creative
+Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA 3.0):
+https://creativecommons.org/licenses/by-sa/3.0/
+
+They are adapted from the NLM/Vancouver style in the Citation Style Language
+repository (https://github.com/citation-style-language/styles), which is
+licensed the same way; its authors are credited in each file, which also links
+to it as its template. tests/locales-en-US.xml is the CSL project's US English
+locale, under the same license.
+
+No license is given yet for the rest of this repository (checks, scripts and
+the lab's safeguard files).

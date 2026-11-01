@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" initialize-with-hyphen="false" default-locale="en-US">
+  <!--
+    Why not the standard NLM style (nlm-citation-sequence), which NIH suggests
+    and this style is based on? Used in Zotero for an NIH application, NLM:
+    - prints the DOI of every item that has one, and for everything but
+      journal articles "[cited date]. Available from: URL" too. Zotero turns
+      every printed DOI and URL into a live link. NIH allows hyperlinks and
+      URLs only where a funding opportunity or form instructions say so
+      (SF424 application guide, "Format Attachments"), and grants offices flag
+      links, even ones inside the document.
+    - shortens author lists of seven or more to six names and "et al." NIH's
+      instructions have asked for all authors, in the order on the paper.
+    - doesn't mark preprints ("medRxiv; 2024. doi:..."). NIH asks for
+      preprints to be cited with "[Preprint]", a date for the version and the
+      DOI (NOT-OD-17-050).
+    (NLM does print the PMCID, as "PubMed Central PMCID", which the NIH Public
+    Access Policy requires for the applicant's NIH-supported papers; this
+    style keeps it, as plain "PMCID: PMC...".)
+
+    So this style prints no URL or access date anywhere, lists every author,
+    prints the PMCID from the item's Extra field, and gives preprints the
+    server, "[Preprint]", the posting date and the DOI (or, with no DOI, the
+    Archive ID, such as an arXiv number). NIH's own example cites the DOI as a
+    doi.org web address with a [cited] date; this style prints it as
+    "doi: 10..." instead, so there is no URL.
+
+    WARNING: Zotero makes that preprint DOI a live link, in Word and in Google
+    Docs alike; a style cannot stop it. Remove those links last, in a final
+    copy, since a Zotero refresh puts them back (steps in the README). Then
+    check the whole bibliography for links: a reference pasted by hand can
+    bring one in.
+
+    A paper within three months of publication may be cited with its NIHMS ID
+    instead of a PMCID; Zotero has no field for it, so add it by hand (see the
+    README). Check the current SF424 guide and your funding opportunity before
+    each submission.
+  -->
+  <info>
+    <title>National Institutes of Health Grant Proposal</title>
+    <title-short>NIH Grant</title-short>
+    <id>https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/nih-grant-proposal.csl</id>
+    <link href="https://raw.githubusercontent.com/vlmurthylab/csl-styles/main/nih-grant-proposal.csl" rel="self"/>
+    <link href="http://www.zotero.org/styles/nlm-citation-sequence" rel="template"/>
+    <link href="https://grants.nih.gov/grants-process/write-application/how-to-apply-application-guide/format-attachments" rel="documentation"/>
+    <link href="https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html" rel="documentation"/>
+    <link href="https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm" rel="documentation"/>
+    <author>
+      <name>Venkatesh Murthy</name>
+    </author>
+    <contributor>
+      <name>Michael Berkowitz</name>
+    </contributor>
+    <contributor>
+      <name>Sebastian Karcher</name>
+    </contributor>
+    <contributor>
+      <name>Matt Tracy</name>
+    </contributor>
+    <category citation-format="numeric"/>
+    <category field="medicine"/>
+    <summary>NLM-style numbered references for NIH applications, which allow no hyperlinks: no URLs or access dates, and a DOI only for preprints, where NIH asks for it. Every author is listed, and a PMCID is printed as plain text when the item has one. WARNING: Zotero makes a preprint's DOI a live link, in Word and in Google Docs; remove those links before submitting.</summary>
+    <updated>2026-11-01T12:00:00+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <locale xml:lang="en">
+    <terms>
+      <term name="presented at">presented at</term>
+      <term name="section" form="short">sect.</term>
+    </terms>
+  </locale>
+  <macro name="author">
+    <names variable="author" suffix=". ">
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+      <label form="long" prefix=", "/>
+      <substitute>
+        <names variable="editor"/>
+      </substitute>
+    </names>
+  </macro>
+  <!-- "In: Editor A, editor. Book title" for chapters and conference papers;
+       "In:" stays even with no editor, so the book isn't read as the author's -->
+  <macro name="editor">
+    <group delimiter=": ">
+      <choose>
+        <if type="chapter paper-conference" match="any">
+          <text term="in" text-case="capitalize-first"/>
+        </if>
+      </choose>
+      <group delimiter=" ">
+        <names variable="editor" suffix=".">
+          <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+          <label form="long" prefix=", "/>
+        </names>
+        <text variable="container-title"/>
+      </group>
+    </group>
+  </macro>
+  <macro name="publisher">
+    <group delimiter=": " suffix=";">
+      <choose>
+        <if type="thesis">
+          <text variable="publisher-place" prefix="[" suffix="]"/>
+        </if>
+        <else-if type="speech"/>
+        <else>
+          <text variable="publisher-place"/>
+        </else>
+      </choose>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+  <macro name="journal-title">
+    <choose>
+      <if type="article-journal article-magazine" match="any">
+        <group suffix=". ">
+          <text variable="container-title" form="short" font-style="italic" strip-periods="true"/>
+        </group>
+      </if>
+      <else>
+        <text variable="container-title" suffix=". " form="short"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="title">
+    <text variable="title"/>
+    <choose>
+      <if type="article-journal article-magazine chapter paper-conference article-newspaper" match="none">
+        <text macro="edition" prefix=". "/>
+      </if>
+    </choose>
+    <choose>
+      <if type="thesis">
+        <text variable="genre" prefix=" [" suffix="]"/>
+      </if>
+    </choose>
+  </macro>
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="ordinal"/>
+          <text term="edition" form="short"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition" suffix="."/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="report-details">
+    <choose>
+      <if type="report">
+        <text variable="number" prefix="Report No.: "/>
+      </if>
+    </choose>
+  </macro>
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout vertical-align="sup" delimiter=",">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+  <bibliography second-field-align="flush">
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+      <text macro="author"/>
+      <text macro="title" suffix=". "/>
+      <choose>
+        <if type="bill book graphic legal_case legislation motion_picture report song thesis" match="any">
+          <group prefix=" " delimiter=" ">
+            <text macro="publisher"/>
+            <date variable="issued" suffix=".">
+              <date-part name="year"/>
+            </date>
+          </group>
+          <text macro="report-details" prefix=" " suffix="."/>
+        </if>
+        <else-if type="chapter paper-conference" match="any">
+          <!-- NLM: In: Editor A, editor. Book title. Place: Publisher; Year. p. 1-20. -->
+          <text macro="editor" prefix=" " suffix="."/>
+          <group prefix=" " delimiter=" ">
+            <text macro="publisher"/>
+            <date variable="issued" suffix=".">
+              <date-part name="year"/>
+            </date>
+          </group>
+          <text variable="page" prefix=" p. " suffix="."/>
+        </else-if>
+        <else>
+          <choose>
+            <if type="article">
+              <!-- Preprint, as NIH asks (NOT-OD-17-050): the server's name (Zotero's
+                   Repository field), "[Preprint]", the posting date (which identifies
+                   the version) and the DOI. This is the only DOI the style prints, and
+                   never a URL: Zotero makes the DOI a link in Word, so the README says
+                   how to turn it into plain text before submitting. -->
+              <choose>
+                <if variable="publisher">
+                  <text variable="publisher" prefix=" " suffix=" "/>
+                </if>
+                <else-if variable="archive">
+                  <text variable="archive" prefix=" " suffix=" "/>
+                </else-if>
+              </choose>
+              <text value="[Preprint]."/>
+              <group prefix=" " delimiter=" ">
+                <date variable="issued" delimiter=" " suffix=".">
+                  <date-part name="year"/>
+                  <date-part name="month" form="short" strip-periods="true"/>
+                  <date-part name="day"/>
+                </date>
+                <choose>
+                  <if variable="DOI">
+                    <text variable="DOI" prefix="doi: " suffix="."/>
+                  </if>
+                  <else>
+                    <!-- No DOI: the Archive ID (an arXiv number), as plain text -->
+                    <text variable="number" suffix="."/>
+                  </else>
+                </choose>
+              </group>
+            </if>
+            <else>
+              <text macro="journal-title"/>
+              <!-- "2021;12:100-110." or just "2021." (no stray semicolon) -->
+              <group delimiter=";" suffix=".">
+                <date variable="issued">
+                  <date-part name="year"/>
+                </date>
+                <group>
+                  <text variable="volume"/>
+                  <text variable="page" prefix=":"/>
+                </group>
+              </group>
+            </else>
+          </choose>
+          <!-- NIH public access policy: PMCID as plain text, only if the item has one -->
+          <text variable="PMCID" prefix=" PMCID: " suffix="."/>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
