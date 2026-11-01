@@ -32,6 +32,8 @@ To update a style, install the new file the same way; Zotero replaces the old on
 | Shortens author lists to six names and "et al." | All authors, in the order on the paper | Every author |
 | Preprints aren't marked, even when saved as Zotero's Preprint type: "[Internet]. medRxiv; 2024. Available from: URL doi:…", with the year only | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI (with no DOI, the Archive ID, such as an arXiv number). NIH's own example gives the DOI as a doi.org address with a [cited] date; this style prints `doi: 10…` instead, so there is no URL |
 
+Plain NLM does print the PMCID ("PubMed Central PMCID: …"), which the [NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm) (Grants Policy Statement 8.2.2) requires, at the end of the reference, for your own NIH-supported papers. This style keeps it as plain `PMCID: PMC…`, taken from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it).
+
 At a glance, with references inserted with the Zotero plugin (✅ meets NIH's rule, ❌ doesn't):
 
 <table>
@@ -51,22 +53,22 @@ At a glance, with references inserted with the Zotero plugin (✅ meets NIH's ru
 </tbody>
 </table>
 
-Google Docs fails "No hyperlinks" with either style because of Zotero's own links to zotero.org, which **Zotero → Unlink Citations** removes (see [Before submitting](#nih-applications) below); the style can't change that. For "Preprint", the item must be saved in Zotero as a Preprint (below).
+Google Docs fails "No hyperlinks" with either style because of Zotero's own links to zotero.org, which **Zotero → Unlink Citations** removes (see the "Before submitting" step below); the style can't change that. For the three preprint rows, the item must be saved in Zotero as a Preprint, with its posting date (see "Preprints" below).
 
-Plain NLM does print the PMCID ("PubMed Central PMCID: …"), which the [NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm) (Grants Policy Statement 8.2.2) requires, at the end of the reference, for your own NIH-supported papers. This style keeps it as plain `PMCID: PMC…`, taken from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it).
-
-**Preprints:** save each one in Zotero as item type **Preprint**, with **Repository** set to the server (e.g. medRxiv) and **Date** set to the posting date of the version you cite (the version's page on the server shows it). Imports sometimes arrive as Journal Article; the style then prints no "[Preprint]" and no DOI.
+**Preprints:** save each one in Zotero as item type **Preprint**, with **Repository** set to the server (e.g. medRxiv) and **Date** set to the posting date of the version you cite (the version's page on the server shows it). Imports sometimes arrive as Journal Article, and the style then prints no "[Preprint]" and no DOI: change **Item Type** at the top of the item pane to Preprint, then fill in Repository and Date.
 
 **Before submitting: make sure there are no links.** We tested where Zotero's links come from (Zotero 10.0.7, Word on Windows, Google Docs, with plain NLM and with this style; [results](docs/zotero-link-test-plan.md#results-november-2026-predictions-confirmed)). The style doesn't decide it; how the references get into the document does:
+
+With this style:
 
 | How the references got into the document | Journal articles, web pages and other items | Preprint DOI |
 |---|---|---|
 | Word, inserted with the Zotero plugin | ✅ no link | ✅ no link (plain text) |
-| Google Docs, inserted with the plugin | ❌ the whole reference links to zotero.org | ❌ the whole reference links to zotero.org |
+| Google Docs, inserted with the plugin | ❌ the citation numbers and the whole bibliography link to zotero.org | ❌ the citation numbers and the whole bibliography link to zotero.org |
 | Google Docs, after **Zotero → Unlink Citations** | ✅ no link | ✅ no link |
-| Pasted from Quick Copy or Create Bibliography (Word or Google Docs) | ✅ no link (this style prints no DOI or URL for them) | ❌ live link to doi.org, and unlinking doesn't remove it |
+| Pasted from Quick Copy or Create Bibliography (Word or Google Docs) | ❌ don't paste: these have no link (this style prints no DOI or URL for them), but the preprint in the same paste does | ❌ live link to doi.org, and unlinking doesn't remove it |
 
-✅ means ready to submit; ❌ means a link is still there. So:
+✅ means ready to submit; ❌ means not ready, because a link is still there in the document. So:
 - **Word:** references inserted with the Zotero plugin (citations, then **Add/Edit Bibliography**) carry no links; the preprint DOI is plain text. Nothing to remove. (Tested on Windows; Word on a Mac wasn't tested.)
 - **Google Docs:** the Zotero plugin links every citation and the whole bibliography to zotero.org, to keep track of them, and the preprint DOI sits inside that link. Last of all, make a copy, run **Zotero → Unlink Citations** in it, and download or export that copy. Unlinking removes every Zotero link but disconnects the copy from Zotero, hence the copy.
 - **Never paste a bibliography** from Quick Copy (Ctrl+Shift+C) or Create Bibliography: in both editors pasted DOIs become live links to doi.org and URLs link to themselves, and Unlink Citations doesn't remove them. (Create Bibliography wasn't tested, but works the same way in Zotero's code.)

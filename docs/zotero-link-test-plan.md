@@ -24,8 +24,7 @@ Notes:
 | **Google Docs** (PDF) | Every citation and the whole bibliography link to zotero.org, as with NLM. No doi.org links. | The preprint DOI links to doi.org. |
 | **Google Docs copy after Unlink Citations** | **No links.** | The preprint DOI link stays. |
 
-**And NLM again, with the preprint saved as a Preprint** (Word `.docx` and PDF, Google Docs PDF, Web page and `.docx` downloads, PDF after unlinking): the links behave exactly as in the first round (none from the plugin in Word, zotero.org in Google Docs until unlinked, live links when pasted, now including the preprint's URL, which NLM prints for this type). NLM still doesn't mark the preprint: it prints "[Internet]. medRxiv; [year]. … Available from: URL doi:…", with the year only, which matches what citeproc-js gives for a made-up preprint. So the README's case for the NIH style holds.
-
+**And NLM again, with the preprint saved as a Preprint** (Word `.docx` and PDF, Google Docs PDF, Web page and `.docx` downloads, PDF after unlinking): the links behave exactly as in the first round (none from the plugin in Word, zotero.org in Google Docs until unlinked, live links when pasted, now including the preprint's URL, which NLM prints for this type). NLM still doesn't mark the preprint: it prints "[Internet]. medRxiv; [year]. … Available from: URL doi:…", with the year only (the Google Docs copy still showed the earlier year, as its bibliography hadn't been refreshed after the item's Date was changed), which matches what citeproc-js gives for a made-up preprint. So the README's case for the NIH style holds.
 
 **What this means for NIH applications** (now in the README and the warning in `nih-grant-proposal.csl`): in Word, insert references with the plugin and nothing needs removing; in Google Docs, run Unlink Citations in a final copy before exporting; never paste a bibliography from Quick Copy or Create Bibliography. The test plan follows, as it was run.
 
@@ -49,7 +48,7 @@ Not tested, for background: text typed by hand in Word or LibreOffice can be tur
 
 Use **NLM/Vancouver**, listed in Zotero as "NLM/Vancouver: Citing Medicine 2nd edition (citation-sequence)" (`nlm-citation-sequence`). If it isn't installed, add it from Zotero Settings → Cite → Get additional styles. What it prints:
 - journal articles with a DOI: a bare `doi:10.…`, no URL;
-- other types (preprints, web pages, reports): `Available from: https://…`, `[cited …]` with the Accessed date (a bare `[cited]` if Accessed is empty), and `doi:…` if there is one.
+- other types (preprints, web pages, reports): `Available from: https://…`, `[cited …]` with the Accessed date, if set, and `doi:…` if there is one.
 
 Recommended as well: one more Word document and one more Google Doc in this repository's `nih-grant-proposal.csl`, part A only, with the same uploads. That's the exact grant setup and the case the README warning is about (it prints a DOI only for preprints, as `doi: 10…`). Install it first, as in the README's "Installing in Zotero".
 

@@ -27,8 +27,8 @@
     "doi: 10..." instead, so there is no URL.
 
     Save each preprint in Zotero as item type Preprint, with Repository (the
-    server) and Date (the posting date of the version cited). Saved as a
-    Journal Article, it prints with no "[Preprint]" and no DOI.
+    server) and Date (the posting date of the version cited). A preprint
+    saved as a Journal Article prints with no "[Preprint]" and no DOI.
 
     WARNING: links. Whether that DOI is a link depends on how the references
     get into the document, not on the style (tested with this style and NLM
