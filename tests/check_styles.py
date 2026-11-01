@@ -72,7 +72,7 @@ def main():
             print("   " + line)
         if len(lines) != len(REFS):
             failures.append(f"{p.name}: rendered {len(lines)} of {len(REFS)} references")
-        if p.name.startswith("nih"):
+        if p.name == "national-institutes-of-health-grant-proposals.csl":
             # Static, read with an XML parser so quoting and spacing can't hide
             # anything: no element may print a URL or access date, no "cited"
             # term, and the only DOI is inside the preprint branch

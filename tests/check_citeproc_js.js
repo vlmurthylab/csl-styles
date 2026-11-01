@@ -64,7 +64,7 @@ for (const f of styles) {
     const pages = short ? "100-10" : "100–110";
     if (!line("j5").includes(pages)) failures.push(`${f}: expected pages ${pages}: ${line("j5")}`);
   }
-  if (f.startsWith("nih")) {
+  if (f === "national-institutes-of-health-grant-proposals.csl") {
     // Every CSL 1.0.2 item type, each with a URL, DOI and access date: only a
     // preprint (type article) may carry its DOI, and so the only link
     const ALL_TYPES = ["article", "article-journal", "article-magazine", "article-newspaper", "bill", "book",
