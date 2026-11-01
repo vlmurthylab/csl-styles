@@ -2,7 +2,9 @@
 
 - Every style is well-formed XML and renders made-up references with
   citeproc-py (no real references or data are used).
-- Every style is valid against the CSL schema (citeproc-py's validator).
+- Every style is valid against the CSL schema (the RelaxNG schema that
+  citeproc-py bundles). citeproc-py's own validate=True only warns, so the
+  check validates each style itself and fails on any error.
 - The NIH style never prints a URL or an access date, and prints a DOI only
   for preprints (NIH asks for it there, NOT-OD-17-050): NIH does not allow
   hyperlinks, and a printed URL or DOI can become one in Word. Checked in the
@@ -19,6 +21,8 @@ import xml.dom.minidom
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from lxml import etree
+from citeproc import SCHEMA_PATH
 from citeproc import (Citation, CitationItem, CitationStylesBibliography,
                       CitationStylesStyle, formatter)
 from citeproc.source.json import CiteProcJSON
@@ -51,6 +55,14 @@ REFS = [
 ]
 
 
+def schema_errors(style_path):
+    """Errors from validating the style against the CSL schema; empty if valid."""
+    schema = etree.RelaxNG(etree.parse(SCHEMA_PATH))
+    if schema.validate(etree.parse(str(style_path))):
+        return []
+    return [f"line {e.line}: {e.message}" for e in schema.error_log]
+
+
 def render(style_path):
     style = CitationStylesStyle(str(style_path), validate=True)  # CSL schema
     bib = CitationStylesBibliography(style, CiteProcJSON(REFS), formatter.plain)
@@ -71,6 +83,8 @@ def main():
         except Exception as e:
             failures.append(f"{p.name}: not well-formed XML ({e})")
             continue
+        for err in schema_errors(p):
+            failures.append(f"{p.name}: not valid against the CSL schema: {err}")
         lines = render(p)
         print(f"== {p.name}")
         for line in lines:
