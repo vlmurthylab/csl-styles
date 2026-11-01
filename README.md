@@ -32,6 +32,21 @@ To update a style, install the new file the same way; Zotero replaces the old on
 | Shortens author lists to six names and "et al." | All authors, in the order on the paper | Every author |
 | Preprints aren't marked, even when saved as Zotero's Preprint type: "[Internet]. medRxiv; 2024. Available from: URL doi:…", with the year only | Preprints cited with "[Preprint]", a date for the version and the DOI ([NOT-OD-17-050](https://grants.nih.gov/grants/guide/notice-files/NOT-OD-17-050.html)) | Server, "[Preprint]", posting date and DOI (with no DOI, the Archive ID, such as an arXiv number). NIH's own example gives the DOI as a doi.org address with a [cited] date; this style prints `doi: 10…` instead, so there is no URL |
 
+At a glance, with references inserted with the Zotero plugin. Each cell gives Word, then Google Docs (✅ meets NIH's rule, ❌ doesn't):
+
+| NIH's rule | Standard NLM (Word · Google Docs) | This style (Word · Google Docs) |
+|---|---|---|
+| No hyperlinks | ✅ · ❌ | ✅ · ❌ |
+| No URLs | ❌ · ❌ | ✅ · ✅ |
+| No access dates | ❌ · ❌ | ✅ · ✅ |
+| All authors listed | ❌ · ❌ | ✅ · ✅ |
+| Preprints marked "[Preprint]" | ❌ · ❌ | ✅ · ✅ |
+| Preprint dated by the version cited | ❌ · ❌ | ✅ · ✅ |
+| Preprint DOI | ✅ · ✅ | ✅ · ✅ |
+| PMCID for your NIH-supported papers | ✅ · ✅ | ✅ · ✅ |
+
+Google Docs fails "No hyperlinks" with either style because of Zotero's own links to zotero.org, which **Zotero → Unlink Citations** removes (see [Before submitting](#nih-applications) below); the style can't change that. For "Preprint", the item must be saved in Zotero as a Preprint (below).
+
 Plain NLM does print the PMCID ("PubMed Central PMCID: …"), which the [NIH Public Access Policy](https://grants.nih.gov/grants/policy/nihgps/html5/section_8/8.2.2_nih_public_access_policy.htm) (Grants Policy Statement 8.2.2) requires, at the end of the reference, for your own NIH-supported papers. This style keeps it as plain `PMCID: PMC…`, taken from the item's **Extra** field (`PMCID: PMC1234567`; items imported from PubMed already have it).
 
 **Preprints:** save each one in Zotero as item type **Preprint**, with **Repository** set to the server (e.g. medRxiv) and **Date** set to the posting date of the version you cite (the version's page on the server shows it). Imports sometimes arrive as Journal Article; the style then prints no "[Preprint]" and no DOI.
