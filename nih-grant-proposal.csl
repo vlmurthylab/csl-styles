@@ -11,9 +11,10 @@
       links, even ones inside the document.
     - shortens author lists of seven or more to six names and "et al." NIH's
       instructions have asked for all authors, in the order on the paper.
-    - doesn't mark preprints ("medRxiv; 2024. doi:..."). NIH asks for
-      preprints to be cited with "[Preprint]", a date for the version and the
-      DOI (NOT-OD-17-050).
+    - doesn't mark preprints: even saved as Zotero's Preprint type, it prints
+      "[Internet]. medRxiv; 2024. Available from: URL doi:...", with the year
+      only. NIH asks for preprints to be cited with "[Preprint]", a date for
+      the version and the DOI (NOT-OD-17-050).
     (NLM does print the PMCID, as "PubMed Central PMCID", which the NIH Public
     Access Policy requires for the applicant's NIH-supported papers; this
     style keeps it, as plain "PMCID: PMC...".)
@@ -25,9 +26,13 @@
     doi.org web address with a [cited] date; this style prints it as
     "doi: 10..." instead, so there is no URL.
 
+    Save each preprint in Zotero as item type Preprint, with Repository (the
+    server) and Date (the posting date of the version cited). A preprint
+    saved as a Journal Article prints with no "[Preprint]" and no DOI.
+
     WARNING: links. Whether that DOI is a link depends on how the references
-    get into the document, not on the style (tested with Zotero 10.0.7, see
-    docs/zotero-link-test-plan.md; steps in the README):
+    get into the document, not on the style (tested with this style and NLM
+    in Zotero 10.0.7, see docs/zotero-link-test-plan.md; steps in the README):
     - Word, inserted with the Zotero plugin: no links, the DOI is plain text
       (tested on Windows; Mac not tested).
     - Google Docs, inserted with the plugin: every citation and the whole
