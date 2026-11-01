@@ -1,0 +1,22 @@
+# Renders made-up references through every style and checks the NIH style
+# prints no URL, DOI or access date. See tests/check_styles.py.
+name: Check styles
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check-styles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install citeproc-py==0.12.1
+      - run: python tests/check_styles.py

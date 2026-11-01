@@ -1,0 +1,10 @@
+The citation styles in this repository (*.csl) are licensed under the Creative
+Commons Attribution-ShareAlike 3.0 Unported License (CC BY-SA 3.0):
+https://creativecommons.org/licenses/by-sa/3.0/
+
+They are adapted from styles in the Citation Style Language repository
+(https://github.com/citation-style-language/styles), which are licensed the same
+way; the authors and contributors of the originals are credited in each file.
+
+The rest of this repository (the checks, workflows and lab safeguard files) may
+be used under the same license.
