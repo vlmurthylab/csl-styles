@@ -32,7 +32,7 @@ Notes:
 
 NIH applications must have no hyperlinks, but preprints must be cited with their DOI. The plan was to propose a Zotero document preference to stop linking DOIs and URLs. Reading Zotero's code (zotero/zotero, release 10.0.7, October 2026) suggests that preference would change nothing. These tests check where the links really come from before we propose anything.
 
-They also test this repository's README ("Before submitting: remove the preprint links") and the warning at the top of `national-institutes-of-health-grant-proposals.csl`, which say Zotero turns any printed DOI into a live link in Word and Google Docs. Both were updated with the results.
+They also test this repository's README (its "Before submitting" steps, then headed "remove the preprint links") and the warning at the top of `national-institutes-of-health-grant-proposals.csl`, which then said Zotero turns any printed DOI into a live link in Word and Google Docs. Both were updated with the results.
 
 What the code suggests:
 

@@ -7,8 +7,9 @@
   validate=True only warns, so the check validates each style itself and fails
   on any error. For a clearer message, try https://validator.citationstyles.org.
 - The NIH style never prints a URL or an access date, and prints a DOI only
-  for preprints (NIH asks for it there, NOT-OD-17-050): NIH does not allow
-  hyperlinks, and a printed URL or DOI can become one in Word. Checked in the
+  for preprints (NIH asks for it there, NOT-OD-17-050): NIH allows no active
+  hyperlinks, and a printed URL or DOI becomes a live link when a bibliography
+  is pasted from Zotero's Quick Copy, in Word or Google Docs. Checked in the
   style's source as well as in rendered output.
 - The compact styles differ only in their title, ID, self link, summary,
   author rule, whether they print the article title, and page-range format, so
