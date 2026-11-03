@@ -121,7 +121,7 @@ Some files are the same in every lab repository and are changed only in the lab'
 
 | Lab core (identical everywhere) | Per repository |
 |---|---|
-| `hooks/pre-commit`, `tools/phi_guard.pl`, `tools/install_hooks.R`, `.github/workflows/phi-check.yml`, `.github/CODEOWNERS`, `CLAUDE.md` | `phi-guard.conf` (settings, files to allow or block), `hooks/pre-commit.local` (extra checks, optional) |
+| `hooks/pre-commit`, `tools/phi_guard.pl`, `tools/test_phi_guard.pl`, `tools/install_hooks.R`, `.github/workflows/phi-check.yml`, `.github/CODEOWNERS`, `CLAUDE.md` | `phi-guard.conf` (settings, files to allow or block), `hooks/pre-commit.local` (extra checks, optional) |
 | `.gitignore` and `.gitattributes` above their **This repository** sections | `.gitignore` and `.gitattributes` from **This repository** down |
 | `AGENTS.md` above its **This project** section | `AGENTS.md` **This project** section |
 
