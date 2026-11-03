@@ -105,6 +105,8 @@ Check the current SF424 application guide and your funding opportunity before ea
 
 The styles grew out of the official CSL repository's NLM-based styles, whose authors are credited in each file. The Clinical Nuclear Medicine style that the lab wrote earlier is in the official repository already, so Zotero users can install it from there. The NIH style has been offered there as "National Institutes of Health (grant proposals)".
 
+The lab's Circulation style was in the official repository from June 2011 (commit [e718ceb](https://github.com/citation-style-language/styles/commit/e718ceb1), "fix for circulation from venkmurthy") until October 2025. Then the maintainers made "Circulation" a dependent of "Stroke", since the American Heart Association journals share one reference style ([commit 28e8faa](https://github.com/citation-style-language/styles/commit/28e8faae), closing their issue #7824). Zotero users who choose "Circulation" now get Stroke's formatting. The lab's version is kept in that repository's history.
+
 ## License
 
 The styles are [CC BY-SA 3.0](LICENSE), as required for styles derived from the official CSL repository's; each links to the NLM style it's based on.
