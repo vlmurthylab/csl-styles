@@ -63,3 +63,4 @@ At the start of a session, turn the hook on: `git config core.hooksPath hooks` (
   - A style's `<id>` and self link are its raw GitHub address in this repository; don't change them (Zotero uses the ID to replace an installed style).
 - **How to run:** `python tests/check_styles.py` (citeproc-py 0.12.1), `node tests/check_citeproc_js.js` and `node scripts/make_samples.js` (citeproc 2.4.63 from npm; commit the regenerated SAMPLES.md); GitHub runs all three on every push (`check-styles.yml`). Then test a changed style in Zotero.
 - **Status:** five styles in use. The NIH style has been offered to the official CSL repository as `national-institutes-of-health-grant-proposals.csl`; the copy here keeps its own ID, and the lab's credits and warnings.
+- **Approved in advance for `phi-ok`:** none. (Only the PI adds kinds of line here, in a PR or issue.)
